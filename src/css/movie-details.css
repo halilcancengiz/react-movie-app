@@ -1,0 +1,50 @@
+#detail-image {
+  height: 600px;
+}
+.movie-actors,
+.movie-team {
+  overflow-x: auto;
+}
+.scrollWebkit::-webkit-scrollbar {
+  height: 7px;
+  background: linear-gradient(
+    180.3deg,
+    rgb(221, 221, 221) 5.5%,
+    rgb(110, 136, 161) 90.2%
+  );
+  border-radius: 10px;
+}
+.scrollWebkit::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    109.6deg,
+    rgb(36, 45, 57) 11.2%,
+    rgb(16, 37, 60) 51.2%,
+    rgb(0, 0, 0) 98.6%
+  );
+  border-radius: 10px;
+}
+.scrollWebkit::-webkit-scrollbar-thumb:hover {
+  background-color: red;
+}
+.progressbar {
+  top: 0;
+}
+
+@media (max-width: 769px) {
+  #movie-details-poster-container{
+    width: 100%!important;
+  }
+
+}
+@media (max-width: 992px) {
+  #movie-details-poster-container{
+    width: 70%;
+  }
+  .movie-details-first-area{
+    text-align: center!important;
+    margin: 0 auto!important;
+  }
+}
+@media (max-width: 1400px) {
+  
+}

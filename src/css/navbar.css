@@ -1,0 +1,18 @@
+header {
+  height: 70px;
+}
+.navbar-collapse {
+  flex-grow: 0 !important;
+}
+.navbar-collapse .nav-link {
+  color: white;
+}
+.navbar-collapse .nav-link:active {
+  color: white;
+}
+.navbar-collapse .nav-link:hover {
+  color: white;
+}
+.active {
+  color: white!important;
+}

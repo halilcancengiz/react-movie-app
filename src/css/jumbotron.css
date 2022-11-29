@@ -1,0 +1,33 @@
+.jumbotron {
+  height: 400px;
+  background: linear-gradient(rgba(33, 37, 41, 0.6), rgba(33, 37, 41, 0.6)),
+    url("../assets/images/jumbotron.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  /* border-bottom-right-radius: 500px;
+  border-bottom-left-radius: 500px; */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+}
+#search {
+  outline: none;
+  padding: 15px 0px;
+}
+
+#search-category {
+  outline: none !important;
+  border: none !important;
+}
+.submit-search-button {
+  color: white;
+  background: #212529;
+  height: 100%;
+  border: none;
+  min-width: 100px;
+}
+.submit-search-button:disabled {
+  background: gray!important;
+  height: 100%;
+  border: none;
+  min-width: 100px;
+}

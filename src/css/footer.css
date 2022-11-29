@@ -1,0 +1,20 @@
+.github-icon svg:hover {
+  color: black !important;
+  filter: drop-shadow(5px 5px 5px white);
+}
+.linkedin-icon svg:hover {
+  color: #006eab !important;
+  filter: drop-shadow(5px 5px 5px white);
+}
+.instagram-icon svg:hover {
+  color: #dd2a7c !important;
+  filter: drop-shadow(5px 5px 5px white);
+}
+.twitter-icon svg:hover {
+  color: #1c9cea !important;
+  filter: drop-shadow(5px 5px 5px white);
+}
+.facebook-icon svg:hover {
+  color: #034f9b !important;
+  filter: drop-shadow(5px 5px 5px white);
+}

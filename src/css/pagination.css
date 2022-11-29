@@ -1,0 +1,6 @@
+.pagination-button:disabled {
+  color: gray !important;
+}
+.pagination-button {
+  color: #0b5ed7;
+}
