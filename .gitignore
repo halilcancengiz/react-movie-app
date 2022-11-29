@@ -10,6 +10,9 @@
 /public/assets/images/*.jpg
 /public/assets/images/*.png
 /public/assets/images/*.jpeg
+/public/assets/images
+/public/assets/svg
+
 
 # testing
 /coverage
