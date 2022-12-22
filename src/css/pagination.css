@@ -2,5 +2,19 @@
   color: gray !important;
 }
 .pagination-button {
-  color: #0b5ed7;
+  color: rgba(10, 37, 62, 1);
+}
+button {
+  background: transparent;
+}
+
+.deactive {
+  background: transparent !important;
+  border: 0.5px solid rgba(10, 37, 62, 1) !important;
+  color: white;
+}
+
+#pagination-container > .active {
+  background: rgba(10, 37, 62, 1) !important;
+  border: none;
 }

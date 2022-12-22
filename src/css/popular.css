@@ -1,10 +1,1 @@
-.movie-card {
-  width: 280px;
-  background-color: rosybrown;
-  height: 350px;
-  box-shadow: 0px 0px 20px black;
-  transition: all .5s ease-in-out;
-}
-.movie-card:hover {
-  transform: scale(1.1);
-}
+

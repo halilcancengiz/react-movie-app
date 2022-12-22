@@ -1,9 +1,18 @@
 import { SpinnerDotted } from 'spinners-react';
+import "../css/loading.css"
 
-export default function Loading() {
+export default function Loading({ isLoading }) {
     return (
-        <div style={{ minHeight: "100vh", background: "linear-gradient(200deg,rgba(255,255,255,.8),rgba(255,255,255,.8))" }} className="position-relative">
-            <SpinnerDotted size={100} color='darkblue' className='position-absolute' style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%" }} />
-        </div>
+        <>
+            {
+                isLoading === false ? "" : (
+                    <div className='loading-container' >
+                        <SpinnerDotted size={100} color='white' />
+                    </div>
+                )
+
+            }
+        </>
+
     )
 }

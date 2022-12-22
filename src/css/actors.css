@@ -1,0 +1,25 @@
+.movie-actors {
+  overflow-x: auto;
+}
+.movie-actors::after {
+  content: ".................................................................";
+  color: transparent;
+  margin: 0;
+  height: 280px;
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 1)
+  );
+}
+.person-info-container {
+  position: absolute;
+  bottom: 5px;
+}

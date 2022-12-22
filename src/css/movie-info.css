@@ -1,0 +1,48 @@
+.spacing-1 {
+  letter-spacing: 1px;
+}
+.imdb-button {
+  right: 0;
+  top: 0;
+}
+.movie-info-text-area {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+.fs-12 {
+  font-size: 12px;
+}
+.info-image {
+  max-width: 300px;
+  max-height: 450px;
+}
+#info-component-container {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+.infinity-slide-animation {
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .movie-info-text-area {
+    background: transparent !important;
+  }
+  .movie-container-info {
+    flex-direction: column !important;
+  }
+  .movie-info-text-area {
+    background: transparent !important;
+  }
+  .info-image {
+    margin: 0 auto !important;
+  }
+}

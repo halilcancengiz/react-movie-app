@@ -1,0 +1,9 @@
+.movie-list-container {
+  background: rgba(10, 37, 62, 1) !important;
+}
+#moviesInTheList {
+  background: rgba(10, 37, 62, 0.8) !important;
+}
+#listDeleteButton {
+  filter: drop-shadow(1px 1px 5px #3a8891) !important;
+}

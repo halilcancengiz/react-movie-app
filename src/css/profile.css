@@ -1,0 +1,26 @@
+.user-photo {
+  width: 280px;
+}
+.user-photo img {
+  width: 280px;
+  height: 280px;
+}
+#user-info {
+  height: 300px;
+  transition: all .5s ease-in-out;
+}
+#user-info input {
+  outline: none;
+  border: 0.5px solid rgb(199, 196, 196);
+}
+#user-info input:focus {
+  border: 0.5px solid rgb(4, 176, 250) !important;
+}
+#user-info input:disabled {
+  background-color: rgb(222, 222, 222) !important;
+}
+
+.movies > div > .movieCard {
+  width: 100px;
+  height: 125px;
+}

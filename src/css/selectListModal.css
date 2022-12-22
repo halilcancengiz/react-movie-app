@@ -1,0 +1,22 @@
+select {
+  outline: none;
+}
+.add-movie-to-list {
+  background: linear-gradient(
+    to top,
+    rgba(10, 37, 62, 1),
+    rgba(10, 37, 62, 0.8)
+  );
+  bottom: 0;
+  right: 0;
+  box-shadow: 1px 1px 5px rgba(10, 37, 62, 1);
+  transition: all 0.5s ease-in-out;
+  border-top-left-radius: 10px;
+}
+.add-movie-to-list:hover {
+  background: linear-gradient(
+    to right,
+    rgba(0, 255, 106, 0.8),
+    rgba(0, 255, 106, 0.8)
+  );
+}

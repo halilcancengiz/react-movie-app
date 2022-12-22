@@ -1,0 +1,10 @@
+.comment-area {
+  height: 150px;
+  padding: 20px;
+  resize: none;
+  outline: none;
+  border: none;
+}
+.comment-area::placeholder {
+  text-transform: capitalize!important;
+}

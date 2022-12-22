@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    value: ""
+    value: []
 }
 
-export const searchValue = createSlice({
-    name: 'search',
+export const userPhoto = createSlice({
+    name: 'photo',
     initialState,
     reducers: {
-        setSearch: (state, action) => {
+        setPhoto: (state, action) => {
             state.value = action.payload
         }
-    },
+    }
 })
 
 // Action creators are generated for each case reducer function
-export const { setSearch } = searchValue.actions
+export const { setPhoto } = userPhoto.actions
 
-export default searchValue.reducer
+export default userPhoto.reducer

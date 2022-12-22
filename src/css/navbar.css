@@ -1,3 +1,10 @@
+#logo {
+  width: 120px !important;
+  filter: drop-shadow(1px 1px 2px #3a8891) !important;
+}
+.navbar {
+  background: rgba(10, 37, 62, 1);
+}
 header {
   height: 70px;
 }
@@ -14,5 +21,30 @@ header {
   color: white;
 }
 .active {
-  color: white!important;
+  color: white !important;
+  background: transparent !important;
+}
+.nav-link > .active {
+  background: transparent !important;
+}
+.activeLang {
+  border-radius: 5px;
+  background: #3b6978 !important;
+  border: 0;
+  color: white;
+}
+.deActiveLang {
+  border-radius: 5px;
+  background: transparent;
+  border: 0;
+  color: white;
+}
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  margin: auto 0;
+  color: white;
+}
+.user-avatar:hover {
+  color: white !important;
 }
