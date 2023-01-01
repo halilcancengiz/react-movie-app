@@ -18,7 +18,7 @@ export default memo(function MovieTeam({ movieCredits }) {
 
     return (
         <div className='container'>
-            <h4 className={movieCredits.crew && movieCredits.crew.every(x => x.profile_path === null) ? "d-none" : "fw-bold text-center w-100 my-5 webkitHeader-h4"}>EKIP</h4>
+            <h4 className={movieCredits.crew && movieCredits.crew.length > 0 ? "fw-bold text-center w-100 my-5 webkitHeader-h4" : "d-none"}>EKIP</h4>
             {
                 movieCredits ? (
                     <Slider {...teamSettings}>

@@ -27,6 +27,7 @@ export default function AnimatedRoutes() {
 
                 <Route path='/' element={<HomeLayout />}>
                     <Route index={true} element={<Main />} />
+                    <Route path="/react-movie-app" element={<Main />} />
                     <Route path='/search/:query' element={<SearchList />} />
                     {user ? "" : <Route path="login" element={<Login />} />}
                     {user ? "" : <Route path="register" element={<Register />} />}

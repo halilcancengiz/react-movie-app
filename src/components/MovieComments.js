@@ -160,7 +160,7 @@ export default function MovieComments() {
     <div className='container'>
       <h4 className="text-uppercase webkitHeader-h4 my-5 w-100 text-center fw-bold">Yorumlar</h4>
       {
-        movieComments && movieComments.some(comment => comment.commentData.authorId === user.uid) === false ? (
+        user && movieComments && movieComments.some(comment => comment.commentData.authorId === user.uid) === false ? (
           <form onSubmit={handleSubmit} className="my-2">
             <Collapse>
               <textarea onChange={handleCommentChange} maxLength={150} placeholder="please write your comment..." className="comment-area w-100" name="" id="" cols="30" rows="10"></textarea>
