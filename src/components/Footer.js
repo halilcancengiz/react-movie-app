@@ -2,14 +2,13 @@ import { NavLink } from 'react-router-dom'
 import { BsGithub, BsInstagram, BsLinkedin, BsTwitter, BsFacebook } from "../assets/icons/icons"
 import "../css/footer.css"
 
-export default function Footer() {
-
+function Footer() {
     return (
         <footer className='container-fluid d-flex align-items-center justify-content-center p-5'>
             <div className="container m-0 p-0 g-0">
                 <div className="row m-0 p-0 g-0">
                     <div className="col-12">
-                        <div className="social-media d-flex align-items-center justify-content-center  container">
+                        {/* <div className="social-media d-flex align-items-center justify-content-center  container">
                             <NavLink className="github-icon p-2" to="">
                                 <BsGithub style={{ transition: "all .5s ease-in-out" }} className='mx-3' size={35} color="white" />
                             </NavLink>
@@ -25,7 +24,7 @@ export default function Footer() {
                             <NavLink className="facebook-icon p-2" to="">
                                 <BsFacebook style={{ transition: "all .5s ease-in-out" }} className='mx-3 ' size={35} color="white" />
                             </NavLink>
-                        </div>
+                        </div> */}
                         <div className='text-center d-flex align-items-center justify-content-center'>
                             <span className='text-white'>Api Kaynağı : </span>
                             <a style={{ width: "50px", height: "50px" }} className="tmdb-footer-logo p-2" rel='noreferrer' target="_blank" href="https://www.themoviedb.org/">
@@ -42,3 +41,4 @@ export default function Footer() {
         </footer>
     )
 }
+export default Footer

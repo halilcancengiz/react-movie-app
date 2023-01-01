@@ -1,37 +1,32 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import { posterURL, imdbURL } from "../services/apiURLs";
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, memo } from 'react';
 import { AiOutlineClockCircle, FaImdb } from "../assets/icons/icons"
 import "../css/movie-info.css"
 import { getMovieDetails } from "../services/tmdb/tmdb";
 
-
-export default function MovieInfo({ movieId, movieCredits, language }) {
+export default memo(function MovieInfo({ movieId, movieCredits, language }) {
     const [movieDetails, setMovieDetail] = useState([]);
     const [movieWriter, setMovieWriter] = useState([]);
     const [movieDirector, setMovieDirector] = useState([]);
 
+
     // useCallback START
     const updateMovieDetailsAndCredits = useCallback(async () => {
         await getMovieDetails(movieId, language).then(result => setMovieDetail(result))
-    }, [movieId, language])
-
-
-    const updateWriterAndDirector = useCallback(async () => {
         if (movieCredits && movieCredits.crew) {
             const writer = movieCredits.crew.filter(crew => crew.department === "Writing");
             const director = movieCredits.crew.filter(crew => crew.department === "Directing")
             setMovieWriter(writer)
             setMovieDirector(director)
         }
-    }, [movieCredits])
+    }, [movieId, language, movieCredits])
+
+
     // useCallback END
 
     useEffect(() => {
-        updateWriterAndDirector()
         updateMovieDetailsAndCredits()
-    }, [updateMovieDetailsAndCredits, updateWriterAndDirector])
+    }, [updateMovieDetailsAndCredits])
     return (
         <div style={{ background: `linear-gradient(to right,rgba(0,0,0,.7),rgba(0,0,0,.7)),url(${movieDetails && movieDetails.backdrop_path ? posterURL(movieDetails.backdrop_path) : ""})` }} id="info-component-container" className='py-5 m-0 g-0'>
             <div className="movie-container-info container g-0 d-flex overflow-hidden rounded-4 text-white">
@@ -50,10 +45,15 @@ export default function MovieInfo({ movieId, movieCredits, language }) {
 
                 <div className='movie-info-text-area bg-transparent flex-fill d-flex align-items-start justify-content-start p-5'>
                     <div className='d-flex align-items-start justify-content-start w-100 flex-column'>
-                        <div className='movie-title h-100 d-flex align-items-center fs-4 fw-bold text-uppercase'>{movieDetails.original_title}
-                            <span className='ms-2 fs-5'>{`(${movieDetails.release_date ? movieDetails.release_date : "-"})`}</span>
-
+                        <div className="title-realese-date-container">
+                            <div className='movie-title h-100 d-flex align-items-center fs-4 fw-bold text-uppercase'>
+                                {movieDetails.original_title}
+                            </div>
+                            <div>
+                                <span className='movie-realese-date ms-lg-2 fs-5'>{`(${movieDetails.release_date ? movieDetails.release_date : "-"})`}</span>
+                            </div>
                         </div>
+
                         <div className='movie-genres text-center mb-3 d-flex align-items-center'>
                             <span className='me-2 fs-6 text-lowercase fw-semibold'><AiOutlineClockCircle size={25} />{` ${movieDetails.runtime ? movieDetails.runtime : "-"}`}<sub>m</sub></span>
                             {
@@ -71,7 +71,7 @@ export default function MovieInfo({ movieId, movieCredits, language }) {
                             <p className='p-0'>{movieDetails.overview}</p>
                         </div>
 
-                        <div className="d-flex align-items-center justify-content-between w-100">
+                        <div className="writer-director-budget-container w-100 flex-wrap">
                             <div className='movie-writer d-flex align-items-center justify-content-center flex-column me-4'>
                                 <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>Yazar</span>
                                 <p className='spacing-1 m-0 p-0 fs-6 fst-italic d-flex flex-column justify-content-center align-items-center'>
@@ -98,4 +98,4 @@ export default function MovieInfo({ movieId, movieCredits, language }) {
             </div>
         </div >
     )
-}
+})

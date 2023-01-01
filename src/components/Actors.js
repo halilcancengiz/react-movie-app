@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { alphabetically } from "../utils/sortHelper"
 import { posterURL } from "../services/apiURLs"
@@ -6,75 +7,26 @@ import defaultImageMan from "../assets/images/defaultManImage.png"
 import defaultImageWoman from "../assets/images/defaultWomanImage.png"
 import { Empty, Image, Tooltip } from 'antd';
 import { FaImdb } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
 import { RiMovieFill } from '../assets/icons/icons';
 import { findPersonImdbHelper } from './../utils/findPersonImdbHelper';
+import useRedux from "../hooks/useRedux"
 import "../css/actors.css"
+import { actorsSettings } from '../utils/sliderSettings';
 
 
-
-export default function Actors({ header, movieCredits }) {
-    const language = useSelector(state => state.language.language)
-    let settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 5,
-        slideCount: 5,
-        slidesToScroll: 5,
-        initialSlide: 0,
-        responsive: [
-            {
-                breakpoint: 1300,
-                settings: {
-                    slidesToShow: 4,
-                    slideCount: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slideCount: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 900,
-                settings: {
-                    slidesToShow: 2,
-                    slideCount: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 0,
-                }
-            },
-            {
-                breakpoint: 500,
-                settings: {
-                    slidesToShow: 1,
-                    slideCount: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 0
-                }
-            }
-        ]
-    };
+export default memo(function Actors({ movieCredits }) {
+    const { language } = useRedux()
 
     return (
-        <>
-            <h4 className='fw-bold text-center my-5 webkitHeader-h4'>AKTORLER</h4>
 
+        <div className='container'>
+            <h4 className='fw-bold text-center my-5 webkitHeader-h4 w-100'>AKTORLER</h4>
             {
                 movieCredits.cast ? (
-                    <Slider {...settings}>
+                    <Slider {...actorsSettings}>
                         {
                             movieCredits.cast ? movieCredits.cast.sort(alphabetically(true)).map((actor) => (
-                                <div key={actor.id} className="d-flex flex-column  align-items-center justify-content-center me-5" data-bs-toggle="tooltip" data-bs-placement="top" title={actor.name}>
+                                <div key={actor.id} className="d-flex flex-column w-100 align-items-center justify-content-center me-5" data-bs-toggle="tooltip" data-bs-placement="top" title={actor.name}>
                                     <div className="movie-actor-image-container  position-relative">
                                         <Image
                                             preview={actor.profile_path === null ? false : true}
@@ -94,7 +46,7 @@ export default function Actors({ header, movieCredits }) {
                                                     </div>
                                                     <NavLink to={`/person/${actor.name.split(" ").join("")}/${actor.id}`}>
                                                         <Tooltip title={`'${actor.name}' bulunduğu diğer filmler.`}>
-                                                            <RiMovieFill size={35} className="m-2 icon-shadow" />
+                                                            <RiMovieFill size={35} color="dodgerblue" className="m-2 icon-shadow" />
                                                         </Tooltip>
                                                     </NavLink>
                                                 </div>
@@ -109,11 +61,8 @@ export default function Actors({ header, movieCredits }) {
                     </Slider>
                 ) : <Empty />
             }
+        </div>
 
-
-
-
-        </>
 
     )
-}
+})

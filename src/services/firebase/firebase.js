@@ -1,13 +1,17 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateProfile, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, addDoc, onSnapshot, doc, where, query, updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc } from "firebase/firestore";
 import { toast } from 'react-hot-toast';
 import { store } from "../../app/store"
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 
 import { loginHandle, logoutHandle } from "../../features/auth"
 import { setUserComments, setMovieComments } from "../../features/comments";
 import { setDisplayName, setPhotoURL } from "../../features/userProfile";
-import { setAllUsersImages } from "../../features/allUserImages";
+import { setLists } from "../../features/userLists";
+import { setAllUserImages } from "../../features/allUserImages"
+
+
 
 
 const firebaseConfig = {
@@ -23,6 +27,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+const storage = getStorage(app);
 
 
 
@@ -144,16 +149,14 @@ export const resetPassword = async (email) => {
     }
 }
 // Kullanıcı ad,soyad ve fotoğraf güncelleme
-export const updateUserNameAndUserPhoto = async (displayName, photoURL, user) => {
+export const updateUserName = async (displayName, user) => {
     try {
         if (user && user.uid) {
             await setDoc(doc(db, "user-profile", auth.currentUser.uid), {
                 displayName,
-                photoURL,
                 createdWho: auth.currentUser.uid
             });
             userProfileListener(user)
-            toast.success("Profiliniz güncellenmiştir.")
         }
     } catch (error) {
         toast.error(error.message)
@@ -162,15 +165,13 @@ export const updateUserNameAndUserPhoto = async (displayName, photoURL, user) =>
 export const userProfileListener = async (user) => {
     try {
         if (user && user.uid) { // 'user' değişkeninin tanımlı olup olmadığını ve 'null' değerine eşit olup olmadığını kontrol ediyoruz
-            const userProfileData = onSnapshot(query(collection(db, "user-profile"), where("createdWho", "==", user.uid)), (result) => {
+            return onSnapshot(query(collection(db, "user-profile"), where("createdWho", "==", user.uid)), (result) => {
                 let userProfile = ""
                 result.forEach(doc => {
                     userProfile = { data: doc.data() }
-
                 })
                 if (userProfile) {
                     store.dispatch(setDisplayName(userProfile.data.displayName))
-                    store.dispatch(setPhotoURL(userProfile.data.photoURL))
                 }
 
             });
@@ -179,24 +180,90 @@ export const userProfileListener = async (user) => {
         toast.error(`userProfileListener ${error}`)
     }
 }
-export const getAllUserImages = async () => {
-    const allProfileImages = onSnapshot(collection(db, "user-profile"), (result) => {
-        let allImages = []
-        result.forEach(doc => {
-            allImages.push({
-                profile: doc.data()
-            })
-        })
-        store.dispatch(setAllUsersImages(allImages))
-    });
+
+export const updatePhoto = async (file, user, type) => {
+    try {
+        if (user && user.uid) {
+            // Dosya referansı oluşturun
+            const fileName = `${user.uid}`;
+            const storageRef = ref(storage, fileName);
+            const metadata = { contentType: type };
+            await uploadBytes(storageRef, file, metadata)
+            getUserImageFromFirebase(user.uid)
+        }
+    } catch (error) {
+        // Yükleme sırasında hata oluşursa uyarı gösterin
+        toast.error(error);
+    }
 }
+export const getUserImageFromFirebase = async (userId) => {
+    const userImageRef = ref(storage, userId)
+    let imageURL = ""
+    await getDownloadURL(userImageRef).then(result => {
+        imageURL = result
+    })
+    store.dispatch(setPhotoURL(imageURL))
+}
+
+
+
+export const getAllAuthorsImage = async authorList => {
+    try {
+        if (authorList) {
+            const commentAuthorList = [];
+            await listAll(ref(storage)).then(result => {
+                result.items.forEach(item => {
+                    commentAuthorList.push(item.name);
+                });
+            });
+            const movieCommentAuthors = commentAuthorList.filter(author => authorList.includes(author));
+            const finalList = [];
+            for (let j = 0; j < movieCommentAuthors.length; j++) {
+                const url = await getDownloadURL(ref(storage, movieCommentAuthors[j]));
+                finalList.push({
+                    id: movieCommentAuthors[j],
+                    url,
+                });
+            }
+            return finalList;
+        }
+    }
+    catch (error) {
+        toast.error(error.message);
+    }
+};
+export const getAllAuthorsDisplayName = async authorList => {
+    try {
+      if (authorList) {
+        return new Promise((resolve, reject) => {
+          let result = onSnapshot(query(collection(db, "user-profile")), result => {
+            const authorDisplayNameList = [];
+            result.forEach(doc => {
+              if (authorList.includes(doc.data().createdWho)) {
+                authorDisplayNameList.push({
+                  id: doc.data().createdWho,
+                  displayName: doc.data().displayName,
+                });
+              }
+            });
+            resolve(authorDisplayNameList);
+          });
+        });
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+
 
 // Kullanıcı Durumunu kontrol eder (login,logout)
 onAuthStateChanged(auth, async (user) => {
-    if (user) {
+    if (user && user.uid) {
         store.dispatch(loginHandle(user));
         await userProfileListener(user)
         await userCommentListener(user)
+        await getUserImageFromFirebase(user.uid)
     } else {
         store.dispatch(logoutHandle());
     }
@@ -233,7 +300,6 @@ export const updateComment = async (comment, description) => {
             updateAt: `${new Date()}`,
             likes: comment.likes,
             dislikes: comment.dislikes,
-            author: auth.currentUser.displayName,
             authorId: auth.currentUser.uid
         })
         toast.success("Yorumunuz güncelledi")
@@ -245,31 +311,33 @@ export const updateComment = async (comment, description) => {
 export const deleteComment = async (id) => {
     await deleteDoc(doc(db, "movie-comments", id))
 }
-// Kullanıcı Yorumları Getirme
+// Kullanıcı Yorumları Getirme (REALTİME)
 export const userCommentListener = async (user) => {
     if (!user || !user.uid) {
-
+        return null
     }
     else {
         return onSnapshot(query(collection(db, "movie-comments"), where("authorId", "==", user.uid)), (result) => {
-            const x = []
+            const userComments = []
             result.forEach(doc => {
-                x.push({ id: doc.id, data: doc.data() })
+                userComments.push({ id: doc.id, data: doc.data() })
             })
-            store.dispatch(setUserComments(x))
+            store.dispatch(setUserComments(userComments))
         });
     }
 };
 
-// Film Yorumlarını Getirme
+// Film Yorumlarını Getirme (REALTİME)
 export const movieCommentListener = async (movieId) => {
     try {
         return onSnapshot(query(collection(db, "movie-comments"), where("movieId", "==", movieId)), (result) => {
             let mComments = []
+
             result.forEach(doc => {
                 mComments.push({
                     id: doc.id,
-                    commentData: doc.data()
+                    commentData: doc.data(),
+
                 })
             })
             store.dispatch(setMovieComments(mComments))
@@ -324,8 +392,27 @@ export const removeDislike = async (commentId, userId) => {
 
 
 
-//TODO Kullanıcı Listelerini Alma
+// Kullanıcı Listelerini Alma
+export const getLists = (user) => {
+    try {
+        if (user && user.uid) {
+            return onSnapshot(query(collection(db, "lists"), where("createdWho", "==", user.uid)), (result) => {
+                let uLists = []
+                result.forEach(doc => {
+                    uLists.push({
+                        id: doc.id,
+                        listData: doc.data()
+                    })
+                })
+                store.dispatch(setLists(uLists))
+            });
+        }
 
+    } catch (error) {
+        toast.error(`getLists ${error}`)
+    }
+
+}
 // Liste Oluşturma
 export const createList = async (name) => {
     await addDoc(collection(db, "lists"), {

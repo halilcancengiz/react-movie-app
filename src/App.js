@@ -3,28 +3,25 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
 import { Toaster } from 'react-hot-toast';
-import { BackTop } from 'antd';
+
 
 
 
 export default function App() {
-  const params = useLocation()
+  const { pathname } = useLocation()
 
   return (
-    <div style={{ background: "linear-gradient(135deg,,rgba(10, 37, 62, 1),rgba(10, 37, 62, .8))" }} className='App'>
+    <div style={{ background: "linear-gradient(to right, rgba(10 37 62,.9),rgba(10 37 62,.9))" }} className='App'>
       {
-        params.pathname.startsWith("/register") || params.pathname.startsWith("/login") ? "" : <Navbar />
+        pathname.startsWith("/register") || pathname.startsWith("/login") ? "" : <Navbar />
       }
 
       <AnimatedRoutes />
 
       <Toaster position="top-right" />
       {
-        params.pathname.startsWith("/register") || params.pathname.startsWith("/login") ? "" : <Footer />
+        pathname.startsWith("/register") || pathname.startsWith("/login") ? "" : <Footer />
       }
-      <div>
-        <BackTop visibilityHeight={200} />
-      </div>
 
     </div >
   )

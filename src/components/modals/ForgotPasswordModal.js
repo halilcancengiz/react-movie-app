@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Input } from 'antd';
 import { resetPassword } from "../../services/firebase/firebase";
 import "../../css/forgot-password-modal.css"

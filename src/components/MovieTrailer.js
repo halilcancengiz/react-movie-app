@@ -1,7 +1,8 @@
 import { getMovieTrailer } from './../services/tmdb/tmdb';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, memo } from 'react';
+import "../css/movie-trailer.css"
 
-export default function MovieTrailer({ movieId, language }) {
+export default memo(function MovieTrailer({ movieId, language }) {
     const [movieVideos, setMovieVideos] = useState([]);
 
     const officialTrailer = movieVideos ? movieVideos.filter(t => t.type === "Trailer") : "";
@@ -14,22 +15,20 @@ export default function MovieTrailer({ movieId, language }) {
         updateMovieVideos()
     }, [updateMovieVideos])
     return (
-        <>
+        <div className='movie-trailer container d-flex align-items-center justify-content-center flex-column'>
             {
                 officialTrailer[0] ? (
-                    <div className='movie-trailer d-flex align-items-center justify-content-center flex-column'>
+                    <>
                         <h4 className='fw-bold text-uppercase my-5 webkitHeader-h4'>Fragman</h4>
                         <iframe
-                            className='w-100'
+                            className='rounded-5'
                             title='movie-trailer'
                             allowFullScreen="allowfullscreen"
-                            width={1000}
-                            height={500}
                             src={`https://www.youtube.com/embed/${officialTrailer[0] ? officialTrailer[0].key : ""}`} frameBorder="0">
                         </iframe>
-                    </div>
+                    </>
                 ) : ""
             }
-        </>
+        </div >
     )
-}
+})

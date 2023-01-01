@@ -3,10 +3,10 @@ import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import auth from '../features/auth';
 import language from '../features/lang';
 import profile from './../features/userProfile';
-import lists from './../features/lists';
 import userPhoto from './../features/userPhoto';
 import comments from './../features/comments';
-import allUserImages from './../features/allUserImages';
+import userListsReducer from "./../features/userLists"
+import allUserImagesReducer from '../features/allUserImages';
 
 
 
@@ -18,10 +18,11 @@ export const store = configureStore({
         auth,
         language,
         profile,
-        lists,
         comments,
         userPhoto,
-        allUserImages
+        uLists: userListsReducer,
+        allUserImages: allUserImagesReducer,
+
     },
     middleware: getDefaultMiddleware({
         serializableCheck: false,

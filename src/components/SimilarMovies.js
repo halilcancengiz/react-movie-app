@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, memo } from 'react';
 import { getSimilarMovies } from '../services/tmdb/tmdb';
 import MovieCard from './MovieCard';
 
-export default function SimilarMovies({ movieId, language }) {
+export default memo(function SimilarMovies({ movieId, language }) {
     const [similarMovies, setSimilarMovies] = useState([])
 
     const updateGetSimilarMovies = useCallback(async () => {
@@ -13,16 +13,20 @@ export default function SimilarMovies({ movieId, language }) {
         updateGetSimilarMovies()
     }, [updateGetSimilarMovies])
     return (
-        <>
-            <h4 className="text-center text-uppercase my-5 webkitHeader-h4 fw-bold">Benzer Filmler</h4>
-            <div className="container d-flex align-items-center justify-content-center flex-wrap">
-
+        <div className="container">
+            <h4 className="text-center text-uppercase w-100 my-5 webkitHeader-h4 fw-bold">Benzer Filmler</h4>
+            <div className="d-flex align-items-center justify-content-center flex-wrap">
                 {
-                    similarMovies ? similarMovies.slice(0, 4).sort((a, b) => b.vote_average - a.vote_average).map((movie, index) => (
-                        <MovieCard key={movie.id} movie={movie} />
-                    )) : ""
+                    similarMovies && similarMovies.length > 0 ? (
+                        <MovieCard
+                            movieList={similarMovies.slice(0, 4).sort((a, b) => b.vote_average - a.vote_average).filter(
+                                movie => movie.poster_path && movie.vote_average && movie.overview
+                            )}
+                        />
+                    ) : ""
                 }
             </div>
-        </>
+        </div>
+
     )
-}
+})

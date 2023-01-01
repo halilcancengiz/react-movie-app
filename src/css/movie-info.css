@@ -22,6 +22,17 @@
 .infinity-slide-animation {
   animation: animate 5s linear infinite;
 }
+.title-realese-date-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.writer-director-budget-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 @keyframes animate {
   0% {
@@ -33,6 +44,22 @@
 }
 
 @media only screen and (max-width: 992px) {
+  .movie-writer,
+  .movie-director,
+  .movie-budget {
+    margin-top: 10px;
+  }
+  .writer-director-budget-container {
+    justify-content: center;
+  }
+  .title-realese-date-container {
+    align-items: flex-start !important;
+    flex-direction: column;
+  }
+  .movie-realese-date {
+    margin-left: 0 !important;
+    float: left;
+  }
   .movie-info-text-area {
     background: transparent !important;
   }

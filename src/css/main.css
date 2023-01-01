@@ -1,0 +1,27 @@
+#search {
+  left: 1rem;
+  bottom: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.ant-segmented-item-selected {
+  background: snow !important;
+}
+.ant-segmented-group {
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ant-segmented-item:hover{
+  color: white!important;
+}
+.ant-segmented-item-selected:hover{
+  color: black!important;
+}

@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+
 import { useLocation, Route, Routes } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion"
 import Popular from '../pages/Popular'
@@ -19,7 +19,6 @@ import PersonDetails from './../pages/PersonDetails';
 
 export default function AnimatedRoutes() {
     const location = useLocation()
-    const user = useSelector(state => state.auth.user)
     return (
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
@@ -27,7 +26,7 @@ export default function AnimatedRoutes() {
 
                 <Route path='/' element={<HomeLayout />}>
                     <Route index={true} element={<Main />} />
-                    <Route path='/search/:querry' element={<SearchList />} />
+                    <Route path='/search/:query' element={<SearchList />} />
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
                 </Route>

@@ -6,5 +6,9 @@
   border: none;
 }
 .comment-area::placeholder {
-  text-transform: capitalize!important;
+  text-transform: capitalize !important;
+}
+.send-btn {
+  background: rgb(10, 37, 62);
+  color: white;
 }

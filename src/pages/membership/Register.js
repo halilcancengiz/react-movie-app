@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import { BsEye, BsEyeSlash, MdEmail, RiLockPasswordLine, BsArrowRepeat } from "../../assets/icons/icons"
-import "../../css/membership.css"
 import { firebaseRegister } from "../../services/firebase/firebase";
 import { useNavigate } from 'react-router-dom';
+import "../../css/membership.css"
+import { Helmet } from 'react-helmet';
 
 
 
@@ -38,6 +39,9 @@ export default function Register() {
     }, [locationState, showPassword])
     return (
         <div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} id='register-page-container'>
+            <Helmet>
+                <title>Kayıt Ol</title>
+            </Helmet>
             <form onSubmit={handleSubmit} id="register-form" className="rounded-3" >
 
                 <div style={{ textStroke: "1px" }} className="d-flex align-items-center mb-3">

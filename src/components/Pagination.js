@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill, BsArrowBarLeft, BsArrowBarRight } from "../assets/icons/icons"
 import { Tooltip } from 'antd';
 import "../css/pagination.css"
 
 
-export default function Pagination({ page, setSearchParams }) {
+function Pagination({ page, setSearchParams }) {
     const currentpage = Number(page)
     let [isActive, setIsActive] = useState({
         firstBoxRef: false,
@@ -68,6 +68,6 @@ export default function Pagination({ page, setSearchParams }) {
     )
 }
 
-
+export default memo(Pagination)
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Input } from 'antd';
 import { toast } from 'react-hot-toast';
 import { BsPlusSquareFill } from "react-icons/bs"

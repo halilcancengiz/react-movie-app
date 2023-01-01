@@ -1,6 +1,8 @@
 #logo {
-  width: 120px !important;
-  filter: drop-shadow(1px 1px 2px #3a8891) !important;
+  width: 6vw;
+  min-width: 70px;
+  max-width: 120px;
+
 }
 .navbar {
   background: rgba(10, 37, 62, 1);

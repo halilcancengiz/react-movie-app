@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { Popconfirm, Empty, Collapse } from 'antd';
 import { BsTrash, FaArrowRight, FaArrowDown } from "../assets/icons/icons"
 import { deleteList } from '../services/firebase/firebase';
@@ -7,7 +7,8 @@ import MovieCard from './MovieCard';
 import "../css/movielist.css"
 
 
-export default function MovieList({ list }) {
+export default memo(function MovieList({ list }) {
+
     const [showMovies, setShowMovies] = useState(false)
     const handleDelete = async (id) => {
         deleteList(id)
@@ -21,10 +22,10 @@ export default function MovieList({ list }) {
                     {
                         !showMovies ? <FaArrowRight /> : <FaArrowDown />
                     }
-                    <span className='ms-3 text-capitalize'>{list.data.list_name}</span>
+                    <span className='ms-3 text-capitalize'>{list.listData.list_name}</span>
                 </div>
                 <Popconfirm
-                    title={`${list.data.list_name} listesini silmek istediğinize emin misiniz?`}
+                    title={`${list.listData.list_name} listesini silmek istediğinize emin misiniz?`}
                     onConfirm={() => handleDelete(list.id)}
                     okText="Evet"
                     cancelText="Hayır"
@@ -39,18 +40,17 @@ export default function MovieList({ list }) {
                     <div id='moviesInTheList' className='d-flex align-items-center justify-content-center'>
                         <div className='d-flex align-items-start flex-wrap justify-content-center m-0 px-3 py-2 w-100'>
                             {
-                                list.data.movies.length > 0 ? list.data.movies.map((movie, index) => (
-                                    <div key={index} className="d-flex flex-column align-items-center position-relative justify-content-center rounded-3 mx-2 ">
-                                        <MovieCard listId={list.id} size={150} movie={movie.data} deleteMovie={movie} />
+                                list.listData.movies.length > 0 ? (
+                                    <div className="d-flex align-items-center flex-wrap position-relative justify-content-center rounded-3 mx-2 ">
+                                        <MovieCard listId={list.id} size={150} movieList={list.listData.movies} />
                                     </div>
-                                )) : <Empty description="Henüz hiç film yok!" />
+                                ) : <Empty description="Henüz Hiç film yok" />
                             }
                         </div>
-
                     </div>
                 ) : ""
             }
 
         </Collapse>
     )
-}
+})

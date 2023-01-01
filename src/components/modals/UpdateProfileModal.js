@@ -1,44 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Input } from 'antd';
+import { updatePhoto, updateUserName } from "../../services/firebase/firebase";
+import useRedux from "../../hooks/useRedux"
+import Loading from './../Loading';
 import { toast } from 'react-hot-toast';
-import { Input } from 'antd';
-import { useSelector } from 'react-redux';
-import { updateUserNameAndUserPhoto } from "../../services/firebase/firebase";
-import { convertBase64 } from './../../utils/base64Helper';
 
-const UpdateProfileModal = ({ data }) => {
+const UpdateProfileModal = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [displayNameInputValue, setDisplayNameInputValue] = useState("")
     const [photoUrlFileValue, setPhotoUrlFileValue] = useState(null)
-    const user = useSelector(state => state.auth.user)
-    const displayName = useSelector(state => state.profile.value.displayName)
-    const photoURL = useSelector(state => state.profile.value.photoURL)
-
+    const [photoContentType, setPhotoContentType] = useState("")
+    const { user, displayName } = useRedux()
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
     const handleOk = async () => {
-        if (displayNameInputValue.length <= 0 && photoUrlFileValue === null) {
-            toast.error("Lütfen güncellemek istediğiniz alanları boş bırakmayın!")
-        }
-        else if (displayNameInputValue.length <= 0 && photoUrlFileValue !== null) {
-            updateUserNameAndUserPhoto(displayName, photoUrlFileValue, user)
+        try {
+            if (displayNameInputValue.length > 0) {
+                updateUserName(displayNameInputValue, user)
+            }
+            if (photoUrlFileValue !== null) {
+                updatePhoto(photoUrlFileValue, user, photoContentType)
+            }
             setIsModalOpen(false)
-            setDisplayNameInputValue("")
+            toast.success("Profiliniz Güncellenmiştir.")
+        } catch (error) {
+            toast.error(error.message)
         }
-        else if (displayNameInputValue.length <= 0 && photoUrlFileValue === null) {
-            updateUserNameAndUserPhoto(displayNameInputValue, photoURL, user)
-            setIsModalOpen(false)
-            setDisplayNameInputValue("")
-        }
-        else {
-            updateUserNameAndUserPhoto(displayNameInputValue, photoUrlFileValue, user)
-            setIsModalOpen(false)
-            setDisplayNameInputValue("")
-        }
+
+
     };
 
     const handleCancel = () => {
@@ -46,8 +39,8 @@ const UpdateProfileModal = ({ data }) => {
     };
     const handleImage = async (e) => {
         const image = e.target.files[0]
-        const base64Image = await convertBase64(image)
-        setPhotoUrlFileValue(base64Image);
+        setPhotoUrlFileValue(image);
+        setPhotoContentType(image.type)
     }
 
     return (

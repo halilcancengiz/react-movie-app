@@ -1,16 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Pagination from '../components/Pagination';
 import MovieCard from '../components/MovieCard';
-import { useSelector } from 'react-redux';
 import { getTopRatedMovies } from '../services/tmdb/tmdb';
+import useRedux from '../hooks/useRedux';
+import SearchBar from '../components/SearchBar';
 
-export default function Trends() {
 
+function TopRatedMovies() {
     const [topRatedMovies, setTopRatedMovies] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get("page") || 1;
-    const language = useSelector((state) => state.language.language)
+    const { language } = useRedux()
 
     const updateGetTopRatedMovies = useCallback(async () => {
         const result = await getTopRatedMovies(page, language)
@@ -19,10 +21,13 @@ export default function Trends() {
 
     useEffect(() => {
         updateGetTopRatedMovies()
-        document.title = "En Çok Oylanan Filmler"
     }, [updateGetTopRatedMovies])
     return (
         <main className='container mt-5 d-flex flex-column'>
+            <Helmet>
+                <title>En Çok Oylanan Filmler</title>
+                <meta name="description" content="Bu sayfada API'den gelen en çok oylanan filmler yer almaktadır." />
+            </Helmet>
             <div className="mx-auto">
                 <h4 className='m-0 p-0 text-center py-2 webkitHeader-h4 text-uppercase fw-bold'>Top Rated</h4>
                 <div className='designBorder'></div>
@@ -30,12 +35,16 @@ export default function Trends() {
 
             <div className="container d-flex align-items-center justify-content-center flex-wrap">
                 {
-                    topRatedMovies ? topRatedMovies.map(movie => (
-                        <MovieCard key={movie.id} movie={movie} />
-                    )) : ""
+                    topRatedMovies && topRatedMovies.length > 0 ? (
+                        <MovieCard
+                            movieList={topRatedMovies}
+                        />
+                    ) : ""
                 }
             </div>
             <Pagination page={page} setSearchParams={setSearchParams} />
+            <SearchBar />
         </main>
     )
 }
+export default TopRatedMovies

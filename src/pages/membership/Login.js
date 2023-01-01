@@ -4,6 +4,7 @@ import { firebaseLogin } from "../../services/firebase/firebase";
 import ForgotPasswordModal from './../../components/modals/ForgotPasswordModal';
 import { MdEmail, RiLockPasswordLine, BsEye, BsEyeSlash } from "../../assets/icons/icons"
 import "../../css/membership.css"
+import { Helmet } from 'react-helmet';
 
 
 const Login = () => {
@@ -36,7 +37,10 @@ const Login = () => {
     }
   }, [locationState, showPassword])
   return (
-    <div  id='login-page-container'>
+    <div id='login-page-container'>
+      <Helmet>
+        <title>Giriş Yap</title>
+      </Helmet>
       <form onSubmit={handleSubmit} id="login-form" className="rounded-3" >
 
         <div style={{ textStroke: "1px" }} className="d-flex align-items-center mb-3 overflow-hidden">
@@ -77,4 +81,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Login

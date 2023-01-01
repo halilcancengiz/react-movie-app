@@ -33,6 +33,9 @@ export { AiFillDislike } from "react-icons/ai" // slider next icon
 export { AiFillLike } from "react-icons/ai" // slider next icon
 export { FiEdit } from "react-icons/fi" //edit comment icon
 export { GiMagnifyingGlass } from "react-icons/gi" //magnifying icon(person)
+export { BsSearch } from "react-icons/bs" //magnifying icon(person)
+export { HiOutlineXMark } from "react-icons/hi2" //magnifying icon(person)
+
 
 
 

@@ -1,78 +1,27 @@
-import React from 'react'
-import Slider from 'react-slick';
-import { alphabetically } from './../utils/sortHelper';
+import { memo } from 'react'
+import useRedux from '../hooks/useRedux';
+import { NavLink } from 'react-router-dom';
 import { posterURL } from '../services/apiURLs';
+import { alphabetically } from './../utils/sortHelper';
+import { findPersonImdbHelper } from '../utils/findPersonImdbHelper';
+import { teamSettings } from '../utils/sliderSettings';
 import { Image, Tooltip } from 'antd';
+import Slider from 'react-slick';
 import { FaImdb, RiMovieFill } from "../assets/icons/icons"
 import defaultImageMan from "../assets/images/defaultManImage.png"
 import defaultImageWoman from "../assets/images/defaultWomanImage.png"
 import "../css/teams.css"
-import { NavLink } from 'react-router-dom';
-import { findPersonImdbHelper } from '../utils/findPersonImdbHelper';
-import { useSelector } from 'react-redux';
 
 
-
-
-export default function MovieTeam({ movieCredits }) {
-    const language = useSelector(state => state.language.language)
-    let settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 5,
-        slideCount: 5,
-        slidesToScroll: 5,
-        initialSlide: 0,
-        responsive: [
-            {
-                breakpoint: 1300,
-                settings: {
-                    slidesToShow: 4,
-                    slideCount: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slideCount: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 900,
-                settings: {
-                    slidesToShow: 2,
-                    slideCount: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 0,
-                }
-            },
-            {
-                breakpoint: 500,
-                settings: {
-                    slidesToShow: 1,
-                    slideCount: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 0
-                }
-            }
-        ]
-    };
+export default memo(function MovieTeam({ movieCredits }) {
+    const { language } = useRedux()
 
     return (
-        <>
-
-            <h4 className={movieCredits.crew && movieCredits.crew.every(x => x.profile_path === null) ? "d-none" : "fw-bold text-center my-5 webkitHeader-h4"}>EKIP</h4>
+        <div className='container'>
+            <h4 className={movieCredits.crew && movieCredits.crew.every(x => x.profile_path === null) ? "d-none" : "fw-bold text-center w-100 my-5 webkitHeader-h4"}>EKIP</h4>
             {
                 movieCredits ? (
-                    <Slider {...settings}>
+                    <Slider {...teamSettings}>
                         {
                             movieCredits.crew ? movieCredits.crew.sort(alphabetically(true)).map((team, index) => (
                                 <div className='d-flex flex-column align-items-center justify-content-center me-5 position-relative' key={index} data-bs-toggle="tooltip" data-bs-placement="top" title={team.name} >
@@ -95,7 +44,7 @@ export default function MovieTeam({ movieCredits }) {
                                                     </div>
                                                     <NavLink to={`/person/${team.name.split(" ").join("")}/${team.id}`}>
                                                         <Tooltip title={`${team.name} bulunduğu diğer filmler`}>
-                                                            <RiMovieFill size={35} color='royalblue' className="m-2 icon-shadow" />
+                                                            <RiMovieFill size={35} color='dodgerblue' className="m-2 icon-shadow" />
                                                         </Tooltip>
                                                     </NavLink>
 
@@ -112,7 +61,9 @@ export default function MovieTeam({ movieCredits }) {
                     </Slider>
                 ) : ""
             }
+        </div>
 
-        </>
+
+
     )
-}
+})

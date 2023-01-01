@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, memo } from 'react'
 import { getPersonInfo } from '../services/tmdb/tmdb'
 import "../css/person-info.css"
-import { imdbURL, posterURL, personImdbURL } from './../services/apiURLs';
-import { Image } from 'antd';
+import { posterURL, personImdbURL } from './../services/apiURLs';
+
 import { FaImdb } from 'react-icons/fa';
 
-export default function PersonInfo({ personId, language }) {
+export default memo(function PersonInfo({ personId, language }) {
     const [person, setPerson] = useState()
 
     const updatePersonInfo = useCallback(() => {
@@ -14,7 +14,6 @@ export default function PersonInfo({ personId, language }) {
 
     useEffect(() => {
         updatePersonInfo()
-        console.log(person);
     }, [updatePersonInfo])
 
     return (
@@ -25,10 +24,10 @@ export default function PersonInfo({ personId, language }) {
                         <div className="movie-container-info container g-0 d-flex overflow-hidden rounded-4 text-white">
                             {
                                 person.profile_path ? (
-                                    <div className="position-relative info-image"> 
+                                    <div className="position-relative info-image">
                                         <img
-                                            className='w-100 h-100' 
-                                            src={posterURL(person.profile_path)} alt={person.name}   
+                                            className='w-100 h-100'
+                                            src={posterURL(person.profile_path)} alt={person.name}
                                         />
                                         <a href={`${personImdbURL(person.imdb_id)}`} target="_blank" rel="noreferrer"><FaImdb size={45} color="#DFB31D" className="imdb-button position-absolute m-2" /></a>
                                     </div>
@@ -54,4 +53,4 @@ export default function PersonInfo({ personId, language }) {
 
 
     )
-}
+})

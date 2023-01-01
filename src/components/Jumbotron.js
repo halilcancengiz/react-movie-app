@@ -3,7 +3,7 @@ import "../css/jumbotron.css"
 import { toast } from 'react-hot-toast';
 import { NavLink } from 'react-router-dom';
 
-export default function Jumbotron() {
+function Jumbotron() {
     const [inputValue, setInputValue] = useState("")
 
     const handleSubmit = (e) => {
@@ -35,3 +35,4 @@ export default function Jumbotron() {
         </>
     )
 }
+export default Jumbotron
