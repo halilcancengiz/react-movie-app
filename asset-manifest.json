@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-movie-app/static/css/main.17153b51.css",
-    "main.js": "/react-movie-app/static/js/main.674c8d5d.js",
+    "main.js": "/react-movie-app/static/js/main.e1a419c3.js",
     "static/media/mask.png": "/react-movie-app/static/media/mask.e7492256716e5702b2d2.png",
     "static/media/jumbotron.jpg": "/react-movie-app/static/media/jumbotron.f28353d6f1188b1ba483.jpg",
     "static/media/logo.png": "/react-movie-app/static/media/logo.d4100272ffdf3d74663f.png",
@@ -13,10 +13,10 @@
     "index.html": "/react-movie-app/index.html",
     "static/media/slick.woff": "/react-movie-app/static/media/slick.295183786cd8a1389865.woff",
     "main.17153b51.css.map": "/react-movie-app/static/css/main.17153b51.css.map",
-    "main.674c8d5d.js.map": "/react-movie-app/static/js/main.674c8d5d.js.map"
+    "main.e1a419c3.js.map": "/react-movie-app/static/js/main.e1a419c3.js.map"
   },
   "entrypoints": [
     "static/css/main.17153b51.css",
-    "static/js/main.674c8d5d.js"
+    "static/js/main.e1a419c3.js"
   ]
 }
