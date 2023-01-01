@@ -38,7 +38,6 @@ function Main() {
     useEffect(() => {
         getUpcomingMovies(language).then((result) => setMovies(result));
         checkGenresValue()
-        console.count("render main");
         searchByGenreId(genreId, page, language,).then((result) => setSearchList(result.sort((a, b) => b.vote_average - a.vote_average)))
     }, [language, genreId, page, checkGenresValue]);
 

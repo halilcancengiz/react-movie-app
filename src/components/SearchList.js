@@ -13,7 +13,6 @@ function SearchList() {
 
     const updateSearchMovie = useCallback(() => {
         searchMovie(query, language).then(result => setSearchMovieList(result))
-        console.log(searchMovieList);
     }, [query, language])
 
     useEffect(() => {
