@@ -7,9 +7,8 @@ export default function NotFound() {
             className='position-absolute bg-white'
             style={{ top: 0 }}
             status="404"
-            title="404"
-            subTitle="Sorry, you are not authorized to access this page."
-            extra={<NavLink to="/" type="primary">Back Home</NavLink>}
+            subTitle="Üzgünüz bu sayfa bulunamadı."
+            extra={<NavLink to="/" type="primary">Ana Sayfaya Dön</NavLink>}
         />
     )
 }

@@ -207,53 +207,6 @@ export const getUserImageFromFirebase = async (userId) => {
 
 
 
-export const getAllAuthorsImage = async authorList => {
-    try {
-        if (authorList) {
-            const commentAuthorList = [];
-            await listAll(ref(storage)).then(result => {
-                result.items.forEach(item => {
-                    commentAuthorList.push(item.name);
-                });
-            });
-            const movieCommentAuthors = commentAuthorList.filter(author => authorList.includes(author));
-            const finalList = [];
-            for (let j = 0; j < movieCommentAuthors.length; j++) {
-                const url = await getDownloadURL(ref(storage, movieCommentAuthors[j]));
-                finalList.push({
-                    id: movieCommentAuthors[j],
-                    url,
-                });
-            }
-            return finalList;
-        }
-    }
-    catch (error) {
-        toast.error(error.message);
-    }
-};
-export const getAllAuthorsDisplayName = async authorList => {
-    try {
-      if (authorList) {
-        return new Promise((resolve, reject) => {
-          let result = onSnapshot(query(collection(db, "user-profile")), result => {
-            const authorDisplayNameList = [];
-            result.forEach(doc => {
-              if (authorList.includes(doc.data().createdWho)) {
-                authorDisplayNameList.push({
-                  id: doc.data().createdWho,
-                  displayName: doc.data().displayName,
-                });
-              }
-            });
-            resolve(authorDisplayNameList);
-          });
-        });
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
 
 
 
@@ -281,7 +234,6 @@ export const addMovieComment = async (description, movieId) => {
             updateAt: "",
             likes: [],
             dislikes: [],
-            author: auth.currentUser.displayName,
             authorId: auth.currentUser.uid
         })
         toast.success(`Yorumunuz başarıyla gönderildi. 
@@ -347,6 +299,56 @@ export const movieCommentListener = async (movieId) => {
     }
 
 }
+// Filme Yorum yapanların fotoğraflarını getirme
+export const getAllAuthorsImage = async authorList => {
+    try {
+        if (authorList) {
+            const commentAuthorList = [];
+            await listAll(ref(storage)).then(result => {
+                result.items.forEach(item => {
+                    commentAuthorList.push(item.name);
+                });
+            });
+            const movieCommentAuthors = commentAuthorList.filter(author => authorList.includes(author));
+            const finalList = [];
+            for (let j = 0; j < movieCommentAuthors.length; j++) {
+                const url = await getDownloadURL(ref(storage, movieCommentAuthors[j]));
+                finalList.push({
+                    id: movieCommentAuthors[j],
+                    url,
+                });
+            }
+            return finalList;
+        }
+    }
+    catch (error) {
+        toast.error(error.message);
+    }
+};
+//Filme Yorum yapanların kullanıcı adlarını getirme
+export const getAllAuthorsDisplayName = async authorList => {
+    try {
+        if (authorList) {
+            return new Promise((resolve, reject) => {
+                let result = onSnapshot(query(collection(db, "user-profile")), result => {
+                    const authorDisplayNameList = [];
+                    result.forEach(doc => {
+                        if (authorList.includes(doc.data().createdWho)) {
+                            authorDisplayNameList.push({
+                                id: doc.data().createdWho,
+                                displayName: doc.data().displayName,
+                            });
+                        }
+                    });
+                    resolve(authorDisplayNameList);
+                });
+            });
+        }
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
 // Like atma
 export const addLike = async (commentId, userId) => {
     try {

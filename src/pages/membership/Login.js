@@ -3,8 +3,8 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { firebaseLogin } from "../../services/firebase/firebase";
 import ForgotPasswordModal from './../../components/modals/ForgotPasswordModal';
 import { MdEmail, RiLockPasswordLine, BsEye, BsEyeSlash } from "../../assets/icons/icons"
-import "../../css/membership.css"
 import { Helmet } from 'react-helmet';
+import "../../css/membership.css"
 
 
 const Login = () => {
@@ -63,10 +63,10 @@ const Login = () => {
           }
         </div>
 
-        <div className="d-flex align-items-center justify-content-start mx-3">
+        {/* <div className="d-flex align-items-center justify-content-start mx-3">
           <input name="rememberMe" value={login.rememberMe} className='ms-2 me-3' id="rememberMe" type="checkbox" />
           <label className="text-white " htmlFor="rememberMe">Remember Me</label>
-        </div>
+        </div> */}
 
         <div className="mx-3 mt-3 d-flex align-items-center justify-content-center flex-column">
           <button type="submit" style={{ background: "linear-gradient(to right,rgba(0,0,0,.7),rgba(0,0,0,.7))" }} className="text-uppercase w-100 border-0 fw-bold py-2 text-white" >login</button>

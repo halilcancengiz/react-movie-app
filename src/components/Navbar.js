@@ -9,7 +9,7 @@ import "../css/navbar.css"
 import UseRedux from "../hooks/useRedux"
 
 function Navbar() {
-    const { user, language, userPhotoURL } = UseRedux()
+    const { user, language, userPhotoURL, userDisplayName } = UseRedux()
     const dispatch = useDispatch()
 
     const toggleLanguage = useCallback(() => {
@@ -49,7 +49,7 @@ function Navbar() {
                         {
                             user ? (
                                 <li className="d-flex align-items-center justify-content-center">
-                                    <NavLink to={`/profile/${user.displayName ? user.displayName.toLowerCase().split(" ").join("") : `newUser${Math.floor(Math.random() * 10000000)}`}`} className="user-avatar rounded-circle overflow-hidden">
+                                    <NavLink to={`/profile/${userDisplayName ? userDisplayName.toLowerCase().split(" ").join("") : user.displayName ? user.displayName.toLowerCase().split(" ").join("") : `Yeni Kullanıcı${Math.floor(Math.random() * 10000000)}`}`} className="user-avatar rounded-circle overflow-hidden">
                                         {
                                             <img className="w-100 h-100" src={userPhotoURL ? userPhotoURL : defaultUserImage} alt="user-avatar" />
                                         }

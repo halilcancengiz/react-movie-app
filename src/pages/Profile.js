@@ -10,6 +10,7 @@ import UserInfo from '../components/UserInfo';
 import useRedux from '../hooks/useRedux';
 import { Helmet } from 'react-helmet';
 import "../css/profile.css"
+import { Empty } from 'antd';
 
 function Profile() {
     const { userName } = useParams()
@@ -56,9 +57,9 @@ function Profile() {
                 <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>Listelerim</h4>
             </div>
             {
-                sortedLists.map(list => (
+                sortedLists && sortedLists.length > 0 ? sortedLists.map(list => (
                     <MovieList key={list.id} list={list} />
-                ))
+                )) : <Empty className='mt-5' description="Henüz Hiç Listeniz Yok"/>
             }
             {/* SECOND AREA END */}
         </div>

@@ -15,22 +15,25 @@ import HomeLayout from '../components/Layouts/HomeLayout';
 import SearchList from "../components/SearchList"
 import Loading from '../components/Loading';
 import PersonDetails from './../pages/PersonDetails';
+import UseRedux from '../hooks/useRedux';
 
 
 export default function AnimatedRoutes() {
+    const { user } = UseRedux()
     const location = useLocation()
     return (
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
-                <Route path='/loading' element={<Loading />} />
 
                 <Route path='/' element={<HomeLayout />}>
                     <Route index={true} element={<Main />} />
                     <Route path='/search/:query' element={<SearchList />} />
-                    <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
+                    {user ? "" : <Route path="login" element={<Login />} />}
+                    {user ? "" : <Route path="register" element={<Register />} />}
                 </Route>
-                <Route path="/profile/:userName" element={<Profile />} />
+                
+                {user ? <Route path="/profile/:userName" element={<Profile />} /> : ""}
+
 
                 <Route path='/popular-movies' element={<PopularMoviesLayout />}>
                     <Route index element={<Popular />} />

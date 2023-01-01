@@ -7,6 +7,8 @@ import useRedux from '../hooks/useRedux';
 import "../css/popular.css"
 import SearchBar from '../components/SearchBar';
 import { Helmet } from 'react-helmet';
+import { motion } from 'framer-motion';
+
 
 const Popular = () => {
   const { language } = useRedux()
@@ -26,7 +28,6 @@ const Popular = () => {
 
   return (
     <main className='popular-page-container container mt-5 d-flex flex-column'>
-
       <Helmet>
         <title>Popüler Filmler</title>
         <meta name='description' content="Bu sayfada API'den gelen popüler filmler yer almaktadır." />
@@ -38,12 +39,12 @@ const Popular = () => {
         <div className='designBorder'></div>
       </div>
 
-      <div className="container d-flex align-items-center justify-content-center flex-wrap">
+      <motion.div  className="container d-flex align-items-center justify-content-center flex-wrap">
         {
           popularMovies && popularMovies.length > 0 ? (
             <MovieCard movieList={popularMovies.sort((a, b) => b.vote_average - a.vote_average)} />) : ""
         }
-      </div>
+      </motion.div>
       <Pagination page={page} setSearchParams={setSearchParams} />
       <SearchBar />
     </main>

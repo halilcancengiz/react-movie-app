@@ -13,6 +13,7 @@ import { Segmented, Tooltip } from 'antd';
 import Slider from 'react-slick';
 import "../css/main.css"
 
+
 function Main() {
 
     const [movies, setMovies] = useState([]);
@@ -82,7 +83,7 @@ function Main() {
                     options={genresName} />
             </div>
             <h4 className='webkitHeader-h4 text-uppercase'>{ }</h4>
-            <div className='searchList d-flex flex-wrap mx-auto container align-items-center justify-content-center'>
+            <div  className='searchList d-flex flex-wrap mx-auto container align-items-center justify-content-center'>
                 {
                     searchList ? <MovieCard movieList={searchList} /> : ""
                 }
