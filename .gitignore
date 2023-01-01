@@ -6,6 +6,7 @@ dist/
 coverage/
 .vscode/
 build/
+build
 # img/assets
 *.img
 *.png
