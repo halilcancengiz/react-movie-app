@@ -47,8 +47,6 @@ function Main() {
         }
     }, [language, setSearchParams])
 
-    console.count("rendered")
-
     useEffect(() => {
         getUpcomingMovies(language).then((result) => setMovies(result));
         checkGenresValue()
