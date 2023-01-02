@@ -9,15 +9,17 @@ import MovieList from './../components/MovieList';
 import UserInfo from '../components/UserInfo';
 import useRedux from '../hooks/useRedux';
 import { Helmet } from 'react-helmet';
-import "../css/profile.css"
+import { useTranslation } from 'react-i18next';
 import { Empty } from 'antd';
+import "../css/profile.css"
 
 function Profile() {
     const { userName } = useParams()
     const dispatch = useDispatch()
-    const { user, userLists } = useRedux()
+    const { user, userLists, language } = useRedux()
     const navigate = useNavigate()
     const sortedLists = [...userLists].sort((a, b) => new Date(b.listData.createdAt) - new Date(a.listData.createdAt))
+    const { t } = useTranslation()
 
 
     const handleLogout = () => {
@@ -34,10 +36,10 @@ function Profile() {
     return (
         <div style={{ minHeight: "100vh" }} className="container mx-auto my-5">
             <Helmet>
-                <title>{`Profile-${userName ? userName : "Yeni Kullanıcı"}`}</title>
+                <title>{`Profile-${userName ? userName : t("newUser")}`}</title>
             </Helmet>
             <div className='d-flex justify-content-center'>
-                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>PROFILIM</h4>
+                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>{t("myProfile")}</h4>
             </div>
             <div className='d-flex align-items-center justify-content-start mb-5'>
                 <div className='d-flex align-items-center justify-content-center'>
@@ -47,19 +49,19 @@ function Profile() {
                     <CreateMovieListModal />
                 </div>
                 <div className='d-flex align-items-center justify-content-center'>
-                    <button className='btn btn-danger btn-sm' onClick={handleLogout}>Çıkış Yap</button>
+                    <button className='btn btn-danger btn-sm' onClick={handleLogout}>{t("exit")}</button>
                 </div>
             </div>
             <UserInfo user={user} />
 
             {/* SECOND AREA START */}
             <div className='w-100 d-flex justify-content-center'>
-                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>Listelerim</h4>
+                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>{t("myLists")}</h4>
             </div>
             {
                 sortedLists && sortedLists.length > 0 ? sortedLists.map(list => (
-                    <MovieList key={list.id} list={list} />
-                )) : <Empty className='mt-5' description="Henüz Hiç Listeniz Yok"/>
+                    <MovieList key={list.id} list={list} language={language} />
+                )) : <Empty className='mt-5' description={t("thereAreNoMoviesYet")} />
             }
             {/* SECOND AREA END */}
         </div>

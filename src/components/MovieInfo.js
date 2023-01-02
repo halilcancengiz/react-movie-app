@@ -1,10 +1,12 @@
 import { posterURL, imdbURL } from "../services/apiURLs";
 import { useState, useCallback, useEffect, memo } from 'react';
 import { AiOutlineClockCircle, FaImdb } from "../assets/icons/icons"
-import "../css/movie-info.css"
+import { useTranslation } from 'react-i18next';
 import { getMovieDetails } from "../services/tmdb/tmdb";
+import "../css/movie-info.css"
 
 export default memo(function MovieInfo({ movieId, movieCredits, language }) {
+    const { t } = useTranslation()
     const [movieDetails, setMovieDetail] = useState([]);
     const [movieWriter, setMovieWriter] = useState([]);
     const [movieDirector, setMovieDirector] = useState([]);
@@ -67,13 +69,13 @@ export default memo(function MovieInfo({ movieId, movieCredits, language }) {
                         </div>
 
                         <div className='movie-overview my-2'>
-                            <h6 className='m-0 text-white mb-1'>Özet</h6>
+                            <h6 className='m-0 text-white mb-1'>{t("summary")}</h6>
                             <p className='p-0'>{movieDetails.overview}</p>
                         </div>
 
                         <div className="writer-director-budget-container w-100 flex-wrap">
                             <div className='movie-writer d-flex align-items-center justify-content-center flex-column me-4'>
-                                <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>Yazar</span>
+                                <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>{t("writer")}</span>
                                 <p className='spacing-1 m-0 p-0 fs-6 fst-italic d-flex flex-column justify-content-center align-items-center'>
                                     {
                                         movieWriter ? movieWriter.slice(0, 1).map((writer, index) => (
@@ -83,13 +85,13 @@ export default memo(function MovieInfo({ movieId, movieCredits, language }) {
                                 </p>
                             </div>
                             <div className='movie-director d-flex align-items-center justify-content-center flex-column me-4'>
-                                <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>Yönetmen</span>
+                                <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>{t("director")}</span>
                                 <p className='spacing-1 m-0 p-0 fs-6 fst-italic d-flex flex-column justify-content-center align-items-center'>{movieDirector ? movieDirector.slice(0, 1).map((director, index) => (
                                     <span key={index} >{director.name}</span>
                                 )) : "-"}</p>
                             </div>
                             <div className='movie-budget d-flex align-items-center justify-content-center flex-column'>
-                                <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>Maliyet</span>
+                                <span className='rounded-3 fw-bold border border-white py-1 px-2 border-end-0 border-start-0 border-top-0 border-dark text-uppercase'>{t("budget")}</span>
                                 <p className='spacing-1 m-0 p-0 fs-6 fst-italic'>{movieDetails && movieDetails.budget !== 0 ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol', notation: "compact" }).format(movieDetails.budget) : "-"}</p>
                             </div>
                         </div>

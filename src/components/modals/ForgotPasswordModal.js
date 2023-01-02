@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Modal, Input } from 'antd';
 import { resetPassword } from "../../services/firebase/firebase";
+import { useTranslation } from 'react-i18next';
 import "../../css/forgot-password-modal.css"
 
 
 const ForgotPasswordModal = () => {
+    const { t } = useTranslation()
     const [email, setEmail] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
@@ -23,10 +25,10 @@ const ForgotPasswordModal = () => {
     return (
         <>
             <div onClick={showModal}>
-                Forgot Password?
+                {t("ForgotPassword?")}
             </div>
-            <Modal okText="Gönder" title="Parola Sıfırlama" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <Input placeholder='Please enter your Email' onChange={(e) => setEmail(e.target.value)} defaultValue={email} />
+            <Modal okText={t("send")} title={"resetPassword"} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Input placeholder={t("Please Enter Your Email")} onChange={(e) => setEmail(e.target.value)} defaultValue={email} />
             </Modal>
         </>
     );

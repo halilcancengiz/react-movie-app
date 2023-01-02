@@ -55,5 +55,6 @@ export const getUpcomingMovies = async (language) => {
 export const searchByGenreId = async (genreId, page, language) => {
     const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${genreId}&language=${language}&page=${page}`)
     const json = await response.json()
-    return json.results
+    const filteredJson = await json.results.sort((a, b) => b.vote_average - a.vote_average)
+    return await filteredJson
 }

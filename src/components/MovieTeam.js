@@ -10,15 +10,17 @@ import Slider from 'react-slick';
 import { FaImdb, RiMovieFill } from "../assets/icons/icons"
 import defaultImageMan from "../assets/images/defaultManImage.png"
 import defaultImageWoman from "../assets/images/defaultWomanImage.png"
+import { useTranslation } from 'react-i18next';
 import "../css/teams.css"
 
 
 export default memo(function MovieTeam({ movieCredits }) {
+    const { t } = useTranslation()
     const { language } = useRedux()
 
     return (
         <div className='container'>
-            <h4 className={movieCredits.crew && movieCredits.crew.length > 0 ? "fw-bold text-center w-100 my-5 webkitHeader-h4" : "d-none"}>EKIP</h4>
+            <h4 className={movieCredits.crew && movieCredits.crew.length > 0 ? "fw-bold text-center text-uppercase w-100 my-5 webkitHeader-h4" : "d-none"}>{t("team")}</h4>
             {
                 movieCredits ? (
                     <Slider {...teamSettings}>

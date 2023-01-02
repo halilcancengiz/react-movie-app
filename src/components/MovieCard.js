@@ -6,11 +6,13 @@ import SelectListModal from './modals/SelectListModal';
 import { rateColorHelper } from './../utils/rateColorHelper';
 import { Tooltip, Progress, Popconfirm } from 'antd';
 import { BsTrash } from "../assets/icons/icons"
-import ".././css/movieCard.css"
+import { useTranslation } from 'react-i18next';
 import useRedux from "../hooks/useRedux"
+import ".././css/movieCard.css"
 
 const MovieCard = memo(({ movieList, size, listId }) => {
-    const { user } = useRedux()
+    const { t } = useTranslation()
+    const { user, language } = useRedux()
     return (
         <>
             {
@@ -56,10 +58,10 @@ const MovieCard = memo(({ movieList, size, listId }) => {
                             </NavLink>
                             <div className='deleteMovieBtn text-center d-flex align-items-center'>
                                 <Popconfirm
-                                    title={`${movie.data.original_title}'ı kaldırmak istediğinize emin misiniz?`}
+                                    title={`${language === "en-EN" ? `Are you sure you want to remove the ${movie.data.original_title}?` : `${movie.data.original_title}'ı kaldırmak istediğinize emin misinz?`}`}
                                     onConfirm={() => deleteMovieToList(movie, listId)}
-                                    okText="Evet"
-                                    cancelText="Hayır">
+                                    okText={t("yes")}
+                                    cancelText={t("no")}>
                                     <BsTrash style={{ cursor: "pointer" }} className='text-white w-100' size={15} />
                                 </Popconfirm>
                             </div>

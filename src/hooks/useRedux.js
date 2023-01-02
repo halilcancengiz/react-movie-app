@@ -10,6 +10,5 @@ export default function UseRedux() {
     const movieComments = useSelector(state => state.comments.value.movieComments)
     const allAuthorsImage = useSelector(state => state.allUserImages.value)
 
-
     return { user, language, userDisplayName, userComments, userLists, movieComments, userPhotoURL, allAuthorsImage };
 }

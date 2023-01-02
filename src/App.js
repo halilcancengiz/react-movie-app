@@ -4,9 +4,6 @@ import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
 import { Toaster } from 'react-hot-toast';
 
-
-
-
 export default function App() {
   const { pathname } = useLocation()
 

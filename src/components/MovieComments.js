@@ -8,10 +8,12 @@ import { AiFillLike, AiFillDislike, BsTrash } from "../assets/icons/icons"
 import { Collapse, Empty, Popconfirm } from 'antd';
 import defaultImage from "../assets/images/defaultManImage.png"
 import useRedux from '../hooks/useRedux';
+import { useTranslation } from 'react-i18next';
 import "../css/comment.css"
 
 
 export default function MovieComments() {
+  const { t } = useTranslation()
   const { user, movieComments } = useRedux()
   const [commentDescription, setCommentDescription] = useState("");
   const [allAuthorsImage, setAllAuthorsImage] = useState([])
@@ -43,19 +45,16 @@ export default function MovieComments() {
     }
     return image || defaultImage;
   };
-
   const findAuthorDisplayName = (authorId) => {
     let displayName = null
     if (allAuthorsDisplayName && allAuthorsDisplayName.length > 0) {
-      const authorDisplayName = allAuthorsDisplayName.find(displayName => displayName.id === authorId) 
+      const authorDisplayName = allAuthorsDisplayName.find(displayName => displayName.id === authorId)
       if (authorDisplayName) {
-        displayName = authorDisplayName.displayName 
+        displayName = authorDisplayName.displayName
       }
     }
     return displayName || "Anonim"
   }
-
-
   const handleSubmit = (e) => {
     e.preventDefault()
     addMovieComment(commentDescription, id)
@@ -151,22 +150,21 @@ export default function MovieComments() {
   useEffect(() => {
     movieCommentListener(id)
   }, [id])
-
   useEffect(() => {
     getCommentAuthorsInformation()
   }, [getCommentAuthorsInformation])
 
   return (
     <div className='container'>
-      <h4 className="text-uppercase webkitHeader-h4 my-5 w-100 text-center fw-bold">Yorumlar</h4>
+      <h4 className="text-uppercase webkitHeader-h4 my-5 w-100 text-center fw-bold">{t("comments")}</h4>
       {
         user && movieComments && movieComments.some(comment => comment.commentData.authorId === user.uid) === false ? (
           <form onSubmit={handleSubmit} className="my-2">
             <Collapse>
-              <textarea onChange={handleCommentChange} maxLength={150} placeholder="please write your comment..." className="comment-area w-100" name="" id="" cols="30" rows="10"></textarea>
+              <textarea onChange={handleCommentChange} maxLength={150} placeholder={t("PleaseWriteYourComment")} className="comment-area w-100" name="" id="" cols="30" rows="10"></textarea>
             </Collapse>
             <div className="d-flex align-items-end justify-content-end">
-              <button className="send-btn px-5 py-1 border-0 rounded-2">Gönder</button>
+              <button className="send-btn px-5 py-1 border-0 rounded-2">{t("send")}</button>
             </div>
           </form>
         ) : ""
@@ -199,8 +197,8 @@ export default function MovieComments() {
                       <Popconfirm
                         title="Yorumunuzu silmek istediğinize emin misiniz?"
                         onConfirm={() => handleDeleteComment(comment.id)}
-                        okText="Evet"
-                        cancelText="Hayır"
+                        okText={t("yes")}
+                        cancelText={t("no")}
                       >
                         <BsTrash color='#E64848' size={20} className="cursor-pointer ms-3" />
                       </Popconfirm>
@@ -232,7 +230,7 @@ export default function MovieComments() {
               </div>
             </Collapse>
           )
-        }) : <Empty description="Bu film için henüz hiç yorum yapılmamıştır." />
+        }) : <Empty description={t("ThereAreNoCommentsTetForThisFilm")} />
       }
     </div>
 

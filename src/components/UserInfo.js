@@ -1,16 +1,17 @@
-import { useEffect, memo, useState } from 'react';
+import { useEffect, memo } from 'react';
 import { userProfileListener, userCommentListener, getUserImageFromFirebase } from "../services/firebase/firebase";
 import { RiMovieFill, MdOutlineFeaturedPlayList, FaRegComment } from "../assets/icons/icons"
 import defaultUserImage from "../assets/images/defaultManImage.png"
 import { Tooltip } from 'antd';
 import { useCallback } from 'react';
 import useRedux from './../hooks/useRedux';
+import { useTranslation } from 'react-i18next';
 import "../css/userinfo.css"
 
 
 function UserInfo({ user }) {
-    const { userDisplayName, userComments, userLists, userPhotoURL } = useRedux()
-
+    const { t } = useTranslation()
+    const { userDisplayName, userComments, userLists, userPhotoURL, language } = useRedux()
     const totalMovie = useCallback(() => {
         let count = 0;
         for (let i = 0; i < userLists.length; i++) {
@@ -37,12 +38,12 @@ function UserInfo({ user }) {
         <section id='user-info-container' className='w-100'>
             <div className='user-profile-photo w-100 position-relative d-flex align-items-center justify-content-center'>
                 <div className="flex-column d-flex align-items-center justify-content-center mb-5">
-                    <h4>{userDisplayName ? userDisplayName : user && user.displayName !== null ? user.displayName : "Yeni Kullanıcı"}</h4>
+                    <h4>{userDisplayName ? userDisplayName : user && user.displayName !== null ? user.displayName : t("newUser")}</h4>
                     <div className='position-relative img-container'>
-                        <img id="user-image-profile" accept=".png, .jpeg, .jpg" src={userPhotoURL ? userPhotoURL : defaultUserImage} alt={userDisplayName ? userDisplayName : "Kayıtsız Kullanıcı"} />
+                        <img id="user-image-profile" accept=".png, .jpeg, .jpg" src={userPhotoURL ? userPhotoURL : defaultUserImage} alt={userDisplayName ? userDisplayName : t("newUser")} />
                     </div>
                     <div id='countContainer' className='d-flex align-items-center justify-content-center mt-5'>
-                        <Tooltip title="Liste Sayım">
+                        <Tooltip title={language === "en-EN" ? "List Count" : "Liste Sayısı"}>
                             <div id='listCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column'>
                                 <MdOutlineFeaturedPlayList size={20} className='mt-1' />
                                 {
@@ -50,7 +51,7 @@ function UserInfo({ user }) {
                                 }
                             </div>
                         </Tooltip>
-                        <Tooltip title="Listelerdeki Toplam Filmlerim">
+                        <Tooltip title={t("totalMovieCount")}>
                             <div id='movieCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column'>
                                 <RiMovieFill size={20} className='mt-1' />
                                 {
@@ -58,7 +59,7 @@ function UserInfo({ user }) {
                                 }
                             </div>
                         </Tooltip>
-                        <Tooltip title="Toplam Yorum Sayım">
+                        <Tooltip title={t("totalCommentCount")}>
                             <div id='commentCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column' >
                                 <FaRegComment size={20} className='mt-1' />
                                 {

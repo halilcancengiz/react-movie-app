@@ -1,8 +1,10 @@
 import { getMovieTrailer } from './../services/tmdb/tmdb';
 import { useCallback, useState, useEffect, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import "../css/movie-trailer.css"
 
 export default memo(function MovieTrailer({ movieId, language }) {
+    const { t } = useTranslation()
     const [movieVideos, setMovieVideos] = useState([]);
 
     const officialTrailer = movieVideos ? movieVideos.filter(t => t.type === "Trailer") : "";
@@ -19,7 +21,7 @@ export default memo(function MovieTrailer({ movieId, language }) {
             {
                 officialTrailer[0] ? (
                     <>
-                        <h4 className='fw-bold text-uppercase my-5 webkitHeader-h4'>Fragman</h4>
+                        <h4 className='fw-bold text-uppercase my-5 webkitHeader-h4'>{t("trailer")}</h4>
                         <iframe
                             className='rounded-5'
                             title='movie-trailer'

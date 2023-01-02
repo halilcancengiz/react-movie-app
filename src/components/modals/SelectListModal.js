@@ -5,11 +5,13 @@ import { addMovieToList } from '../../services/firebase/firebase';
 import CreateMovieListModal from './CreateMovieListModal';
 import { toast } from 'react-hot-toast';
 import { Modal } from 'antd';
-import "../../css/selectListModal.css"
 import useRedux from "../../hooks/useRedux"
+import { useTranslation } from 'react-i18next';
+import "../../css/selectListModal.css"
 
 const SelectListModal = ({ movie, user }) => {
-    const { userLists } = useRedux()
+    const { t } = useTranslation()
+    const { userLists, language } = useRedux()
     const [listId, setListId] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
@@ -21,7 +23,7 @@ const SelectListModal = ({ movie, user }) => {
 
     const handleOk = async () => {
         if (userLists.some(x => x.id === listId && x.listData.movies.some(y => y.data.id === movie.id))) {
-            toast.error("Film Listede Mevcut!")
+            toast.error(t("The film is available on the list"))
         }
         else {
             addMovieToList(listId, movie)
@@ -39,18 +41,18 @@ const SelectListModal = ({ movie, user }) => {
     return (
         <>
             <div className='position-absolute add-movie-to-list text-capitalize border-0 text-white py-1 px-2' onClick={showModal}>
-                Listeye Ekle
+                {t("addToList")}
             </div>
-            <Modal okText="Listeye ekle" cancelText="İptal" title="Liste Seçin" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal okText={language === "en-EN" ? "Add to List" : "Listeye Ekle"} cancelText={t("cancel")} title={t("ChooseAList")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <CreateMovieListModal />
                 {
-                    userLists && userLists.length <= 0 ? <p>Hiç Listeniz Yok</p> : (
+                    userLists && userLists.length <= 0 ? <p>{t("You Don't Have A List Yet")}</p> : (
                         <select onChange={handleChange} className='w-100 p-2 mt-3 rounded-3'>
-                            <option value="" hidden>Bir Liste seçin</option>
+                            <option value="" hidden>{t("ChooseAList")}</option>
                             {
                                 userLists ? userLists.map(list => (
                                     <option key={list.id} className='py-2' value={list.id}>{list.listData.list_name}</option>
-                                )) : <option value="null">Hiç Listeniz Yok</option>
+                                )) : <option value="null">{t("You Don't Have A List Yet")}</option>
                             }
                         </select>
                     )

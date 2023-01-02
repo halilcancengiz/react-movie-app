@@ -1,17 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch } from "react-redux"
 import { changeTrLanguage, changeEnLanguage } from "../features/lang"
-import { getUserImageFromFirebase } from '../services/firebase/firebase';
 import { NavLink } from "react-router-dom"
 import defaultUserImage from "../assets/images/defaultManImage.png"
 import logo from "../assets/images/logo.png"
-import "../css/navbar.css"
 import UseRedux from "../hooks/useRedux"
+import { useTranslation } from 'react-i18next';
+import i18n from "../i18n";
+import "../css/navbar.css"
 
 function Navbar() {
     const { user, language, userPhotoURL, userDisplayName } = UseRedux()
     const dispatch = useDispatch()
-
+    const { t } = useTranslation();
     const toggleLanguage = useCallback(() => {
         if (language === "en-EN") {
             dispatch(changeTrLanguage())
@@ -22,8 +23,9 @@ function Navbar() {
 
 
     useEffect(() => {
-
-    }, [user])
+        i18n.changeLanguage(language);
+        console.log(i18n.language)
+    }, [user, language])
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
@@ -41,10 +43,10 @@ function Navbar() {
                             <button onClick={toggleLanguage} className={language === "en-EN" ? "activeLang" : "deActiveLang"}>EN</button>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/popular-movies/?page=1" aria-current="page">Popüler Filmler</NavLink>
+                            <NavLink className="nav-link" to="/popular-movies/?page=1" aria-current="page">{t("popularMovies")}</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/top-rated-movies/?page=1">En Çok Oylananlar</NavLink>
+                            <NavLink className="nav-link" to="/top-rated-movies/?page=1">{t("topRatedMovies")}</NavLink>
                         </li>
                         {
                             user ? (
@@ -59,7 +61,7 @@ function Navbar() {
                             ) :
                                 (
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to="/login">Membership</NavLink>
+                                        <NavLink className="nav-link text-capitalize" to="/login">{t("membership")}</NavLink>
                                     </li>
                                 )
                         }

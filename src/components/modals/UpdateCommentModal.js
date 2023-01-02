@@ -5,8 +5,10 @@ import { Collapse } from 'antd';
 import { updateComment } from "../../services/firebase/firebase";
 import { toast } from 'react-hot-toast';
 import { deleteComment } from "../../services/firebase/firebase";
+import { useTranslation } from 'react-i18next';
 
 const UpdateCommentModal = memo(({ data, id }) => {
+    const { t } = useTranslation()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [updateCommentDescription, setUpdateCommentDescription] = useState(null);
 
@@ -16,7 +18,7 @@ const UpdateCommentModal = memo(({ data, id }) => {
 
     const handleOk = async () => {
         if (updateCommentDescription === null) {
-            toast.error("Lütfen yorum alanını boş bırakmayın !");
+            toast.error("Please do not leave the comment field blank!");
         } else {
             deleteComment(id);
             setIsModalOpen(false);
@@ -37,9 +39,9 @@ const UpdateCommentModal = memo(({ data, id }) => {
                 onClick={showModal}
             />
             <Modal
-                cancelText="iptal"
-                okText="Gönder"
-                title="Güncel Yorum"
+                cancelText={t("cancel")}
+                okText={t("send")}
+                title={"currentComment"}
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -48,7 +50,7 @@ const UpdateCommentModal = memo(({ data, id }) => {
                     <textarea
                         onChange={(e) => setUpdateCommentDescription(e.target.value)}
                         maxLength={150}
-                        placeholder="Lütfen yorumunuzu yazın..."
+                        placeholder={t("Please write your comment...")}
                         className="comment-area w-100"
                         id=""
                         cols="30"

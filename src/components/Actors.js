@@ -10,17 +10,19 @@ import { FaImdb } from 'react-icons/fa';
 import { RiMovieFill } from '../assets/icons/icons';
 import { findPersonImdbHelper } from './../utils/findPersonImdbHelper';
 import useRedux from "../hooks/useRedux"
-import "../css/actors.css"
 import { actorsSettings } from '../utils/sliderSettings';
+import { useTranslation } from 'react-i18next';
+import "../css/actors.css"
 
 
 export default memo(function Actors({ movieCredits }) {
+    const { t } = useTranslation()
     const { language } = useRedux()
 
     return (
 
         <div className='container'>
-            <h4 className='fw-bold text-center my-5 webkitHeader-h4 w-100'>AKTORLER</h4>
+            <h4 className='fw-bold text-center my-5 webkitHeader-h4 text-uppercase w-100'>{t("actors")}</h4>
             {
                 movieCredits.cast ? (
                     <Slider {...actorsSettings}>

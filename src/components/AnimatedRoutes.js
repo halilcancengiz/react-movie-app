@@ -13,7 +13,6 @@ import PopularMoviesLayout from '../components/Layouts/PopularMoviesLayout';
 import TopRatedMoviesLayout from '../components/Layouts/TopRatedMoviesLayout';
 import HomeLayout from '../components/Layouts/HomeLayout';
 import SearchList from "../components/SearchList"
-import Loading from '../components/Loading';
 import PersonDetails from './../pages/PersonDetails';
 import UseRedux from '../hooks/useRedux';
 

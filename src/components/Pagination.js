@@ -1,10 +1,12 @@
 import { useEffect, useState, memo } from 'react';
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill, BsArrowBarLeft, BsArrowBarRight } from "../assets/icons/icons"
 import { Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import "../css/pagination.css"
 
 
 function Pagination({ page, setSearchParams }) {
+    const { t } = useTranslation()
     const currentpage = Number(page)
     let [isActive, setIsActive] = useState({
         firstBoxRef: false,
@@ -36,13 +38,13 @@ function Pagination({ page, setSearchParams }) {
         <div id='pagination-container' className='container d-flex align-items-center justify-content-center my-5'>
 
             <button className="border-0 fs-3 pagination-button" disabled={page <= 1} onClick={() => setSearchParams({ page: `${currentpage - 1}` })}>
-                <Tooltip title="prev">
+                <Tooltip title={t("prev")}>
                     <BsFillArrowLeftCircleFill />
                 </Tooltip>
             </button>
 
             <button className="border-0 fs-3 pagination-button" disabled={page <= 1} onClick={() => setSearchParams({ page: 1 })}>
-                <Tooltip title="First Page">
+                <Tooltip title={t("firstPage")}>
                     <BsArrowBarLeft />
                 </Tooltip>
             </button>
@@ -54,13 +56,13 @@ function Pagination({ page, setSearchParams }) {
             <button id='fifthBox' onClick={() => currentpage < 496 ? setSearchParams({ page: `${currentpage + 4}` }) : setSearchParams({ page: 500 })} className={isActive.fifthBoxRef ? "btn active mx-1" : "btn deactive mx-1"}>{currentpage > 496 ? 500 : currentpage + 4}</button>
 
             <button className="border-0 fs-3 pagination-button" disabled={page >= 500} onClick={() => setSearchParams({ page: 500 })}>
-                <Tooltip title="Last Page">
+                <Tooltip title={t("lastPage")}>
                     <BsArrowBarRight />
                 </Tooltip>
             </button>
 
             <button className="border-0 fs-3 pagination-button" disabled={page >= 500} onClick={() => setSearchParams({ page: `${currentpage + 1}` })}>
-                <Tooltip title="next">
+                <Tooltip title={t("next")}>
                     <BsFillArrowRightCircleFill />
                 </Tooltip>
             </button>

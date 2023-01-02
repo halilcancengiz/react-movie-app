@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { Modal, Input } from 'antd';
 import { updatePhoto, updateUserName } from "../../services/firebase/firebase";
 import useRedux from "../../hooks/useRedux"
-import Loading from './../Loading';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
 
 const UpdateProfileModal = () => {
+    const { t } = useTranslation()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [displayNameInputValue, setDisplayNameInputValue] = useState("")
     const [photoUrlFileValue, setPhotoUrlFileValue] = useState(null)
@@ -26,7 +27,7 @@ const UpdateProfileModal = () => {
                 updatePhoto(photoUrlFileValue, user, photoContentType)
             }
             setIsModalOpen(false)
-            toast.success("Profiliniz Güncellenmiştir.")
+            toast.success(t("YourProfileHasBeenUpdated."))
         } catch (error) {
             toast.error(error.message)
         }
@@ -46,11 +47,11 @@ const UpdateProfileModal = () => {
     return (
         <>
             <button className='cursor-pointer me-2 btn btn-success btn-sm' onClick={showModal} >
-                Güncelle
+                {t("updateProfile")}
             </button>
-            <Modal cancelText="iptal" okText="Güncelle" title="Profilizi Güncelleyin" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal cancelText={t("cancel")} okText={t("update")} title={t("updateProfile")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <form>
-                    <label htmlFor="fullName">Ad, Soyad :</label>
+                    <label htmlFor="fullName">{t("nameSurname")}</label>
                     <Input onChange={(e) => setDisplayNameInputValue(e.target.value)} value={displayNameInputValue} id="fullName" placeholder={displayName} />
                     <Input onChange={(e) => handleImage(e)} className='border-0 p-0 mt-2 ' type='file' />
                 </form>

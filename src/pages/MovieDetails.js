@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 import MovieInfo from './../components/MovieInfo';
 import MovieComments from './../components/MovieComments';
 import useRedux from "../hooks/useRedux"
+
 // import "../css/movie-details.css";
 
 
@@ -20,12 +21,12 @@ export default function MovieDetails() {
     const [movieCredits, setMovieCredits] = useState([]);
     // VARIABLES
 
+
     useEffect(() => {
         getMovieCredits(id, language).then(result => {
             setMovieCredits(result)
             setIsLoading(false)
         })
-        document.title = `${title.replace(/([A-Z])/g, ' $1').trim()}`
     }, [title, id, language])
     return (
         <>

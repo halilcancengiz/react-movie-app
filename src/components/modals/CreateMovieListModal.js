@@ -3,9 +3,11 @@ import { Modal, Input } from 'antd';
 import { toast } from 'react-hot-toast';
 import { BsPlusSquareFill } from "react-icons/bs"
 import { createList } from '../../services/firebase/firebase';
+import { useTranslation } from 'react-i18next';
 import "../../css/create-movie-list-modal.css"
 
 const CreateMovieListModal = () => {
+    const { t } = useTranslation()
     const [listName, setListName] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
@@ -13,7 +15,7 @@ const CreateMovieListModal = () => {
     };
     const handleOk = async () => {
         if (listName.length === 0) {
-            toast.error("Liste ismi boş bırakılamaz!")
+            toast.error(t("List name cannot be left blank."))
         }
         else {
             setIsModalOpen(false)
@@ -29,11 +31,11 @@ const CreateMovieListModal = () => {
         <>
             <button id='createMovieListModalButton' className='btn btn-sm me-2 d-flex align-items-center justify-content-center text-white' onClick={showModal}>
                 <BsPlusSquareFill className='me-2' />
-                Bir Film Listesi Oluştur
+                {t("createAMovieList")}
             </button>
-            <Modal okText="Create a Movie List" title="Create a Movie List" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <label htmlFor="listname">List Name :</label>
-                <Input id='listname' placeholder='List Name' onChange={(e) => setListName(e.target.value)} value={listName} />
+            <Modal cancelText={t("cancel")} okText={t("create")} title={t("createAMovieList")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <label htmlFor="listname">{t("listName")}</label>
+                <Input id='listname' placeholder={t("listName")} onChange={(e) => setListName(e.target.value)} value={listName} />
             </Modal>
         </>
     );

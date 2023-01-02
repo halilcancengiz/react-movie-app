@@ -1,66 +1,83 @@
+
 export const genres = [
     {
         id: 12,
-        name: "Macera"
+        tr: "Macera",
+        en:"Adventure"
     },
     {
         id: 16,
-        name: "Animasyon"
+        tr: "Animasyon",
+        en:"Animation"
     },
     {
         id: 18,
-        name: "Drama"
+        tr: "Drama",
+        en:"Drama"
     },
     {
         id: 27,
-        name: "Korku"
+        tr: "Korku",
+        en:"Horror"
     },
     {
         id: 28,
-        name: "Aksiyon"
+        tr: "Aksiyon",
+        en:"Action"
     },
     {
         id: 35,
-        name: "Komedi"
+        tr: "Komedi",
+        en:"Comedy"
     },
     {
         id: 36,
-        name: "Tarih"
+        tr: "Tarih",
+        en:"History"
     },
     {
         id: 53,
-        name: "Gerilim"
+        tr: "Gerilim",
+        en:"Thriller"
     },
     {
         id: 80,
-        name: "Suç"
+        tr: "Suç",
+        en:"Crime"
     },
     {
         id: 99,
-        name: "Belgesel"
+        tr: "Belgesel",
+        en:"Documentary"
     },
     {
         id: 878,
-        name: "Bilim Kurgu"
+        tr: "Bilim Kurgu",
+        en:"Science Fiction"
     },
     {
         id: 9648,
-        name: "Gizem"
+        tr: "Gizem",
+        en:"Mistery"
     },
     {
         id: 10402,
-        name: "Müzikal"
+        tr: "Müzikal",
+        en:"Musical"
     },
     {
         id: 10749,
-        name: "Romantik"
+        tr: "Romantik",
+        en:"Romantic"
     },
     {
         id: 10751,
-        name: "Aile"
+        tr: "Aile",
+        en:"Family"
     },
     {
         id: 10752,
-        name: "Savaş"
+        tr: "Savaş",
+        en:"War"
     },
 ]

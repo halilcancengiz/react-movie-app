@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { BsSearch, HiOutlineXMark } from '../assets/icons/icons';
 import "../css/search-bar.css"
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function SearchBar() {
+    const { t } = useTranslation()
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("")
     const navigate = useNavigate()
@@ -27,7 +29,7 @@ function SearchBar() {
                     <button className='search-bar-btn' type="submit">
                         <BsSearch color='white' />
                     </button>
-                    <input onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery} id='search-bar-input' className='flex-fill' type="text" placeholder="Film Ara..." />
+                    <input onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery} id='search-bar-input' className='flex-fill' type="text" placeholder={t("searchMovie")} />
                     <button className='search-bar-btn' onClick={() => setIsOpen(false)}>
                         <HiOutlineXMark color='white' />
                     </button>
