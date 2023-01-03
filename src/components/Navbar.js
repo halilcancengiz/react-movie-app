@@ -13,6 +13,7 @@ function Navbar() {
     const { user, language, userPhotoURL, userDisplayName } = UseRedux()
     const dispatch = useDispatch()
     const { t } = useTranslation();
+
     const toggleLanguage = useCallback(() => {
         if (language === "en-EN") {
             dispatch(changeTrLanguage())
@@ -24,8 +25,7 @@ function Navbar() {
 
     useEffect(() => {
         i18n.changeLanguage(language);
-        console.log(i18n.language)
-    }, [user, language])
+    }, [language])
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">

@@ -39,8 +39,8 @@ const MovieCard = memo(({ movieList, size, listId }) => {
                             }
                         </NavLink>
                         {
-                            user && !size && (
-                                <SelectListModal user={user} movie={movie} />
+                            user && !size && !listId && (
+                                <SelectListModal movie={movie} />
                             )
                         }
                     </div>

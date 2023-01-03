@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, memo, useEffect } from 'react';
 import { getLists } from './../../services/firebase/firebase';
 import { addMovieToList } from '../../services/firebase/firebase';
@@ -9,11 +8,12 @@ import useRedux from "../../hooks/useRedux"
 import { useTranslation } from 'react-i18next';
 import "../../css/selectListModal.css"
 
-const SelectListModal = ({ movie, user }) => {
+const SelectListModal = ({ movie }) => {
     const { t } = useTranslation()
-    const { userLists, language } = useRedux()
+    const { userLists, user } = useRedux()
     const [listId, setListId] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
+      
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -22,10 +22,10 @@ const SelectListModal = ({ movie, user }) => {
     };
 
     const handleOk = async () => {
-        if (userLists.some(x => x.id === listId && x.listData.movies.some(y => y.data.id === movie.id))) {
+        const selectedList = userLists.filter(list => list.id === listId)[0];
+        if (selectedList && selectedList.listData.movies.some(y => y.data.id === movie.id)) {
             toast.error(t("The film is available on the list"))
-        }
-        else {
+        } else {
             addMovieToList(listId, movie)
         }
         setIsModalOpen(false)
@@ -43,7 +43,7 @@ const SelectListModal = ({ movie, user }) => {
             <div className='position-absolute add-movie-to-list text-capitalize border-0 text-white py-1 px-2' onClick={showModal}>
                 {t("addToList")}
             </div>
-            <Modal okText={language === "en-EN" ? "Add to List" : "Listeye Ekle"} cancelText={t("cancel")} title={t("ChooseAList")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal okText={t("addToList")} cancelText={t("cancel")} title={t("ChooseAList")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <CreateMovieListModal />
                 {
                     userLists && userLists.length <= 0 ? <p>{t("You Don't Have A List Yet")}</p> : (

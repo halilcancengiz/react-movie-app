@@ -2,16 +2,16 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { getPopularMovies } from '../services/tmdb/tmdb';
 import Pagination from '../components/Pagination';
 import MovieCard from './../components/MovieCard';
+import SearchBar from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
 import useRedux from '../hooks/useRedux';
-import "../css/popular.css"
-import SearchBar from '../components/SearchBar';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { motion } from 'framer-motion';
+import "../css/popular.css"
 
 
 const Popular = () => {
+
   const { language } = useRedux()
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get("page") || 1;
@@ -24,7 +24,8 @@ const Popular = () => {
 
   useEffect(() => {
     updateGetPopularMovies()
-  }, [updateGetPopularMovies, page])
+    console.log("Popular rendered");
+  }, [updateGetPopularMovies])
 
   return (
     <main className='popular-page-container container mt-5 d-flex flex-column'>
@@ -33,18 +34,17 @@ const Popular = () => {
         <meta name='description' content="Bu sayfada API'den gelen popüler filmler yer almaktadır." />
       </Helmet>
 
-
       <div className='mx-auto'>
         <h4 className='m-0 p-0 text-center webkitHeader-h4 py-2 text-uppercase fw-bold'>{t("popularMovies")}</h4>
         <div className='designBorder'></div>
       </div>
 
-      <motion.div className="container d-flex align-items-center justify-content-center flex-wrap">
+      <div className="container d-flex align-items-center justify-content-center flex-wrap">
         {
           popularMovies && popularMovies.length > 0 ? (
             <MovieCard movieList={popularMovies.sort((a, b) => b.vote_average - a.vote_average)} />) : ""
         }
-      </motion.div>
+      </div>
       <Pagination page={page} setSearchParams={setSearchParams} />
       <SearchBar />
     </main>

@@ -51,7 +51,6 @@ export const getUpcomingMovies = async (language) => {
     const filteredjson = json.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
     return filteredjson
 }
-
 export const searchByGenreId = async (genreId, page, language) => {
     const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${genreId}&language=${language}&page=${page}`)
     const json = await response.json()

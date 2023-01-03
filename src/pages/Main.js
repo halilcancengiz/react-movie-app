@@ -14,10 +14,7 @@ import Slider from 'react-slick';
 import { useTranslation } from 'react-i18next';
 import "../css/main.css"
 
-
 function Main() {
-
-
     const [movies, setMovies] = useState([]);
     const [genreId, setGenreId] = useState(null)
     const [genreName, setGenreName] = useState(null)
@@ -46,6 +43,8 @@ function Main() {
             }
         }
     }, [language, setSearchParams])
+
+
 
     useEffect(() => {
         getUpcomingMovies(language).then((result) => setMovies(result));

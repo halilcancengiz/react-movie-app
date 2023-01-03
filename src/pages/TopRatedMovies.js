@@ -10,6 +10,7 @@ import SearchBar from '../components/SearchBar';
 
 
 function TopRatedMovies() {
+    console.count("rendered Toprated");
     const [topRatedMovies, setTopRatedMovies] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get("page") || 1;
@@ -19,10 +20,12 @@ function TopRatedMovies() {
     const updateGetTopRatedMovies = useCallback(async () => {
         const result = await getTopRatedMovies(page, language)
         setTopRatedMovies(result)
+        console.count("updateGetTopRatedMovies rendered")
     }, [page, language])
 
     useEffect(() => {
         updateGetTopRatedMovies()
+        console.count("TopRatedMovies rendered");
     }, [updateGetTopRatedMovies])
     return (
         <main className='container mt-5 d-flex flex-column'>
@@ -37,11 +40,7 @@ function TopRatedMovies() {
 
             <div className="container d-flex align-items-center justify-content-center flex-wrap">
                 {
-                    topRatedMovies && topRatedMovies.length > 0 ? (
-                        <MovieCard
-                            movieList={topRatedMovies}
-                        />
-                    ) : ""
+                    topRatedMovies && topRatedMovies.length > 0 ? <MovieCard movieList={topRatedMovies} /> : ""
                 }
             </div>
             <Pagination page={page} setSearchParams={setSearchParams} />

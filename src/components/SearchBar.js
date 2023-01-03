@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { BsSearch, HiOutlineXMark } from '../assets/icons/icons';
-import "../css/search-bar.css"
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import "../css/search-bar.css"
 
 function SearchBar() {
     const { t } = useTranslation()
