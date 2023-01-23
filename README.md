@@ -1,6 +1,6 @@
 <h1 style="text-align:center;" id="mainHeader">React Movie App</h1>
 <p style="text-align:center;">Uygulamaya gitmek için <span><a href="https://halilcancengiz.github.io/react-movie-app/" target="blank">tıklayın.</a></span></p>
-<h3 style="text-align:center;text-transform:capitalize">--Kullanılan teknolojiler ve Kütüphaneler--</h3>
+<h3 style="text-align:center;text-transform:capitalize">--Kullanılan Teknolojiler ve Kütüphaneler--</h3>
 <ul style="display:flex;flex-wrap:wrap;justify-content:center">
 <li style="list-style-type:none;display:flex;align-items:center;margin-top:10px;">
 <img width="30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/480px-Unofficial_JavaScript_logo_2.svg.png">
@@ -46,7 +46,7 @@
 <img style="height:300px" src="./src/assets/appMDImages/file-structure-css.png">
 <img style="height:300px" src="./src/assets/appMDImages/file-structure-other.png">
 </div>
-<h3 style="text-align:center;text-transform:capitalize;margin:10px">--uygulama özellikleri--</h3>
+<h3 style="text-align:center;text-transform:capitalize;margin:10px">--Uygulama Özellikleri--</h3>
 <ul style="list-style-type:none;">
 <li style="text-align:flex-start;">Kendinize ait hesap oluşturabilirsiniz. İsminizi ve fotoğrafınızı güncelleyebilirsiniz. Yaptığınız yorumların, eklediğiniz filmlerin ve oluşturduğunuz listelerin istatistiklerine profil sayfasından erişebilirsiniz.</li>
 <li style="text-align:flex-start;">Popüler filmlere ve en çok oylanan filmlere tek tıkla ulaşabilirsiniz. Bunun haricinde istediğiniz bir filmi aratabilir, filmin detay sayfasına giderek film hakkında bilgi alabilirsiniz. Filmde yer alan oyuncuların ve ekip üyelerinin rol aldığı diğer filmlere göz atabilirsiniz. Oyuncuların ve filmin imdb linkine tıklayarak imdb adresine gidebilirsiniz. Ana sayfada güncel filmleri kontrol edebilir ve türlere göre arama yapabilirsiniz.</li>
@@ -56,7 +56,7 @@
 <li style="text-align:flex-start;">Uygulamam tamamen responsive olarak ayarlanmıştır. İsterseniz mobil cihazlarınızdan da erişim sağlayabilirsiniz.</li>
 
 </ul>
-<h3 style="text-align:center;text-transform:capitalize;margin:20px">--uygulama içi görüntüler--</h3>
+<h3 style="text-align:center;text-transform:capitalize;margin:20px">--Uygulama İçi Görüntüler--</h3>
 <div style="display:flex;align-items:center;justify-content:center;margin-top:10px;">
     <img style="max-width:500px;" src="./src/assets/appMDImages/respmovieapp-removebg-preview.png">
 </div>
