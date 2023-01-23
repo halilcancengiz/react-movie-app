@@ -18,3 +18,5 @@ images/
 # log
 *.log
 *.txt
+
+!src/assets/appMDImages/*.png
