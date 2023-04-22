@@ -110,16 +110,16 @@ code {
   }
 }
 
-.mask {
-  -webkit-mask-image: url(./assets/images/mask.png);
-  mask-image: url(./assets/images/mask.png);
-  -webkit-mask-position: top;
-  mask-position: top;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100%;
-  mask-border-mode: black;
-}
+/* .mask {
+    -webkit-mask-image: url(./assets/images/mask.png);
+    mask-image: url(./assets/images/mask.png);
+    -webkit-mask-position: top;
+    mask-position: top;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-border-mode: black;
+  } */
 .upcoming-image-container {
   background-repeat: no-repeat;
   background-size: cover !important;
