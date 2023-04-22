@@ -4,7 +4,7 @@ import { getSimilarMovies } from '../services/tmdb/tmdb';
 import { useTranslation } from 'react-i18next';
 import MovieCard from './MovieCard';
 
-export default memo(function SimilarMovies({ movieId, language }) {
+function SimilarMovies({ movieId, language }) {
     console.count("Similar Movie")
     const { t } = useTranslation()
     const [similarMovies, setSimilarMovies] = useState([])
@@ -33,4 +33,6 @@ export default memo(function SimilarMovies({ movieId, language }) {
         </div>
 
     )
-})
+}
+
+export default memo(SimilarMovies);
