@@ -137,7 +137,7 @@ export const resetPassword = async (email) => {
         }
         else {
             await sendPasswordResetEmail(auth, email, {
-                url: "http://localhost:3000/login"
+                url: "https://react-movie-app-murex.vercel.app/login"
             })
             toast.success(`Mailiniz Gönderilmiştir.
             Lütfen spam kutusunu kontrol etmeyi unutmayınız!`)
