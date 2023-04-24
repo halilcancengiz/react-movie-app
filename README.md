@@ -57,7 +57,7 @@
 
 </ul>
 <h3 style="text-align:center;text-transform:capitalize;margin:20px">--Uygulama İçi Görüntüler--</h3>
-<div style="display:flex;align-items:center;justify-content:center;margin-top:10px;">
+<div align="center" style="display:flex;align-items:center;justify-content:center;margin-top:10px;">
     <img style="max-width:500px;" src="./src/assets/appMDImages/respmovieapp-removebg-preview.png">
 </div>
 <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:20px">
