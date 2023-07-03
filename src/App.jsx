@@ -2,7 +2,6 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar'
 import Footer from './components/Footer';
-import UseRedux from './hooks/useRedux';
 import HomeLayout from './components/Layouts/HomeLayout';
 import Main from './pages/Main';
 import SearchList from './components/SearchList';
@@ -16,10 +15,17 @@ import TopRatedMovies from './pages/TopRatedMovies';
 import PersonDetails from './pages/PersonDetails';
 import MovieDetails from './pages/MovieDetails';
 import NotFound from './pages/NotFound';
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 export default function App() {
   const { pathname } = useLocation()
-  const { user } = UseRedux()
+  const selectUser = state => state.auth.user;
+  const getUser = createSelector(
+    selectUser,
+    user => user
+  )
+  const user = useSelector(getUser);
 
   return (
     <div style={{ background: "linear-gradient(to right, rgba(10 37 62,.9),rgba(10 37 62,.9))" }} className='App'>

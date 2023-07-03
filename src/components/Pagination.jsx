@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react';
+import { memo } from 'react';
 import React from 'react';
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill, BsArrowBarLeft, BsArrowBarRight } from "../assets/icons/icons"
 import { Tooltip } from 'antd';
@@ -9,60 +9,53 @@ import "../css/pagination.css"
 function Pagination({ page, setSearchParams }) {
     const { t } = useTranslation()
     const currentpage = Number(page)
-    let [isActive, setIsActive] = useState({
-        firstBoxRef: false,
-        secondBoxRef: false,
-        thirdBoxRef: false,
-        fourthBoxRef: false,
-        fifthBoxRef: false
-    })
-    const checkIsActive = (page) => {
-        let firstBoxRef = document.getElementById("firstBox").innerText === page;
-        let secondBoxRef = document.getElementById("secondBox").innerText === page;
-        let thirdBoxRef = document.getElementById("thirdBox").innerText === page;
-        let fourthBoxRef = document.getElementById("fourthBox").innerText === page;
-        let fifthBoxRef = document.getElementById("fifthBox").innerText === page;
-        setIsActive({
-            firstBoxRef,
-            secondBoxRef,
-            thirdBoxRef,
-            fourthBoxRef,
-            fifthBoxRef
-        })
 
+    const handlePageChange = (newPage) => {
+        if (newPage < 1) {
+            newPage = 1;
+        } else if (newPage > 500) {
+            newPage = 500;
+        }
+        setSearchParams({ page: newPage.toString() });
     }
-    useEffect(() => {
-        checkIsActive(page)
-    }, [page])
-    // className={firstBoxRef.current.innerText && Number(firstBoxRef.current.innerText) === page ? "btn btn-danger":"btn btn-outline-danger"}
+
     return (
         <div id='pagination-container' className='container d-flex align-items-center justify-content-center my-5'>
-
-            <button className="border-0 fs-3 pagination-button" disabled={page <= 1} onClick={() => setSearchParams({ page: `${currentpage - 1}` })}>
+            <button className="border-0 fs-3 pagination-button" disabled={page <= 1} onClick={() => handlePageChange(currentpage - 1)}>
                 <Tooltip title={t("prev")}>
                     <BsFillArrowLeftCircleFill />
                 </Tooltip>
             </button>
 
-            <button className="border-0 fs-3 pagination-button" disabled={page <= 1} onClick={() => setSearchParams({ page: 1 })}>
+            <button className="border-0 fs-3 pagination-button" disabled={page <= 1} onClick={() => handlePageChange(1)}>
                 <Tooltip title={t("firstPage")}>
                     <BsArrowBarLeft />
                 </Tooltip>
             </button>
 
-            <button id='firstBox' onClick={() => currentpage < 496 ? setSearchParams({ page: `${currentpage}` }) : setSearchParams({ page: 496 })} className={isActive.firstBoxRef ? "btn active mx-1" : "btn deactive mx-1"} >{currentpage > 496 ? 496 : currentpage}</button>
-            <button id='secondBox' onClick={() => currentpage < 496 ? setSearchParams({ page: `${currentpage + 1}` }) : setSearchParams({ page: 497 })} className={isActive.secondBoxRef ? "btn active mx-1" : "btn deactive mx-1"}>{currentpage > 496 ? 497 : currentpage + 1}</button>
-            <button id='thirdBox' onClick={() => currentpage < 496 ? setSearchParams({ page: `${currentpage + 2}` }) : setSearchParams({ page: 498 })} className={isActive.thirdBoxRef ? "btn active mx-1" : "btn deactive mx-1"}>{currentpage > 496 ? 498 : currentpage + 2}</button>
-            <button id='fourthBox' onClick={() => currentpage < 496 ? setSearchParams({ page: `${currentpage + 3}` }) : setSearchParams({ page: 499 })} className={isActive.fourthBoxRef ? "btn active mx-1" : "btn deactive mx-1"}>{currentpage > 496 ? 499 : currentpage + 3}</button>
-            <button id='fifthBox' onClick={() => currentpage < 496 ? setSearchParams({ page: `${currentpage + 4}` }) : setSearchParams({ page: 500 })} className={isActive.fifthBoxRef ? "btn active mx-1" : "btn deactive mx-1"}>{currentpage > 496 ? 500 : currentpage + 4}</button>
+            {[0, 1, 2, 3, 4].map((index) => {
+                const pageNumber = currentpage + index;
+                if (pageNumber > 500) {
+                    return null; // Sayfa numarası 500'ü aşarsa düğme oluşturma
+                }
+                return (
+                    <button
+                        key={index}
+                        onClick={() => handlePageChange(pageNumber)}
+                        className={pageNumber === currentpage ? "btn active mx-1" : "btn deactive mx-1"}
+                    >
+                        {pageNumber}
+                    </button>
+                )
+            })}
 
-            <button className="border-0 fs-3 pagination-button" disabled={page >= 500} onClick={() => setSearchParams({ page: 500 })}>
+            <button className="border-0 fs-3 pagination-button" disabled={page >= 500} onClick={() => handlePageChange(500)}>
                 <Tooltip title={t("lastPage")}>
                     <BsArrowBarRight />
                 </Tooltip>
             </button>
 
-            <button className="border-0 fs-3 pagination-button" disabled={page >= 500} onClick={() => setSearchParams({ page: `${currentpage + 1}` })}>
+            <button className="border-0 fs-3 pagination-button" disabled={page >= 500} onClick={() => handlePageChange(currentpage + 1)}>
                 <Tooltip title={t("next")}>
                     <BsFillArrowRightCircleFill />
                 </Tooltip>
@@ -72,5 +65,3 @@ function Pagination({ page, setSearchParams }) {
 }
 
 export default memo(Pagination)
-
-
