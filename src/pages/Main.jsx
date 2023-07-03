@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
@@ -16,11 +16,11 @@ import { useTranslation } from "react-i18next";
 import "../css/main.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function Main() {
+const Main = () => {
   const selectLanguage = state => state.language;
   const getLanguage = createSelector(
     selectLanguage,
-    language => language
+    language => language.language
   );
   const language = useSelector(getLanguage);
 
@@ -30,15 +30,15 @@ function Main() {
   const [searchList, setSearchList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
-  const genresName = genres.map((name) =>
-    language.language === "en-EN" ? name.en : name.tr
+  const genresName = genres.map(name =>
+    language === "en-EN" ? name.en : name.tr
   );
   const { t } = useTranslation();
 
   const checkGenresValue = useCallback(
-    (e) => {
-      const findGenre = genres.find((x) =>
-        language.language === "tr-TR" ? x.tr === e : x.en === e
+    e => {
+      const findGenre = genres.find(x =>
+        language === "tr-TR" ? x.tr === e : x.en === e
       );
       if (findGenre && findGenre.id) {
         setGenreId(findGenre.id);
@@ -49,11 +49,21 @@ function Main() {
   );
 
   useEffect(() => {
-    getUpcomingMovies(language.language).then((result) => setMovies(result));
-    checkGenresValue();
-    searchByGenreId(genreId, page, language.language).then((result) =>
-      setSearchList(result)
-    );
+    const fetchMovies = async () => {
+      const upcomingMovies = await getUpcomingMovies(language);
+      setMovies(upcomingMovies);
+
+      checkGenresValue();
+
+      const searchResult = await searchByGenreId(
+        genreId,
+        page,
+        language
+      );
+      setSearchList(searchResult);
+    };
+
+    fetchMovies();
   }, [language, genreId, page, checkGenresValue]);
 
   return (
@@ -75,49 +85,52 @@ function Main() {
           {t("currentMovies")}
         </h4>
       </div>
+
       <div className="container">
         <Slider {...mainSettings}>
-          {movies &&
-            movies.map((item) => (
-              <div key={item.id}>
-                <NavLink
-                  to={`/movie/${item.id}/${item.title.replace(/\s/g, "")}`}
-                  className="h-100 d-flex align-items-center justify-content-center p-0 m-0"
-                >
-                  <Tooltip title={item.original_title}>
-                    <LazyLoadImage
-                      style={{
-                        boxShadow: "0 0 10px black",
-                        borderRadius: "20px",
-                        margin: "10px",
-                      }}
-                      effect="blur"
-                      width="150px"
-                      height="100%"
-                      alt={item.original_title}
-                      src={posterURL(item.poster_path)}
-                      placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
-                    />
-                  </Tooltip>
-                </NavLink>
-              </div>
-            ))}
+          {movies.map(item => (
+            <div key={item.id}>
+              <NavLink
+                to={`/movie/${item.id}/${item.title.replace(/\s/g, "")}`}
+                className="h-100 d-flex align-items-center justify-content-center p-0 m-0"
+              >
+                <Tooltip title={item.original_title}>
+                  <LazyLoadImage
+                    style={{
+                      boxShadow: "0 0 10px black",
+                      borderRadius: "20px",
+                      margin: "10px",
+                    }}
+                    effect="blur"
+                    width="150px"
+                    height="100%"
+                    alt={item.original_title}
+                    src={posterURL(item.poster_path)}
+                    placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
+                  />
+                </Tooltip>
+              </NavLink>
+            </div>
+          ))}
         </Slider>
       </div>
+
       <h4 className="webkitHeader-h4 text-center text-uppercase mt-5">
         {t("categories")}
       </h4>
+
       <div className="container mx-auto p-0 text-center d-flex align-items-center justify-content-center flex-column mt-4">
         <Segmented
           style={{ boxShadow: "0 0 10px gray", background: "#0a253e" }}
           className="py-1 w-100 text-center text-white"
-          onChange={(e) => {
+          onChange={e => {
             checkGenresValue(e);
             setGenreName(e);
           }}
           options={genresName}
         />
       </div>
+
       <div className="searchList d-flex flex-wrap mx-auto container align-items-center justify-content-center">
         {searchList && <MovieCard movieList={searchList} />}
       </div>
@@ -126,6 +139,6 @@ function Main() {
       <SearchBar />
     </div>
   );
-}
+};
 
 export default Main;
