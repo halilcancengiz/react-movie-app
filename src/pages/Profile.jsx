@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutHandle } from '../features/auth';
@@ -58,13 +58,13 @@ function Profile() {
                 <title>{`Profile-${userName ? userName : t("newUser")}`}</title>
             </Helmet>
             <div className='d-flex justify-content-center'>
-                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>{t("myProfile")}</h4>
+                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center py-2'>{t("myProfile")}</h4>
             </div>
             <div className='d-flex align-items-center justify-content-start mb-5'>
                 <div className='d-flex align-items-center justify-content-center'>
                     <UpdateProfileModal />
                 </div>
-                <div className='d-flex align-items-center justify-content-center'>
+                <div style={{background: "linear-gradient(to bottom,rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))"}} className='d-flex align-items-center justify-content-center me-2 rounded-1 overflow-hidden'>
                     <CreateMovieListModal />
                 </div>
                 <div className='d-flex align-items-center justify-content-center'>
@@ -74,8 +74,8 @@ function Profile() {
             <UserInfo user={user} />
 
             {/* SECOND AREA START */}
-            <div className='w-100 d-flex justify-content-center'>
-                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center'>{t("myLists")}</h4>
+            <div className='w-100 d-flex justify-content-center my-4'>
+                <h4 className='webkitHeader-h4 text-uppercase fw-bold text-center py-2'>{t("myLists")}</h4>
             </div>
             {
                 sortedLists && sortedLists.length > 0 ? sortedLists.map(list => (

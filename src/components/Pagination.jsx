@@ -1,5 +1,4 @@
-import { useEffect, useState, memo } from 'react';
-import React from 'react';
+import { memo } from 'react';
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill, BsArrowBarLeft, BsArrowBarRight } from "../assets/icons/icons"
 import { Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -42,7 +41,7 @@ function Pagination({ page, setSearchParams }) {
                     <button
                         key={index}
                         onClick={() => handlePageChange(pageNumber)}
-                        className={pageNumber === currentpage ? "btn active mx-1" : "btn deactive mx-1"}
+                        className={pageNumber === currentpage ? "btn activebtn mx-1" : "btn deactive mx-1"}
                     >
                         {pageNumber}
                     </button>

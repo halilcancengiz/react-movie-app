@@ -1,6 +1,5 @@
-import { getMovieTrailer } from './../services/tmdb/tmdb';
-import React from 'react';
 import { useCallback, useState, useEffect, memo } from 'react';
+import { getMovieTrailer } from './../services/tmdb/tmdb';
 import { useTranslation } from 'react-i18next';
 import "../css/movie-trailer.css"
 
@@ -11,7 +10,7 @@ export default memo(function MovieTrailer({ movieId, language }) {
     const officialTrailer = movieVideos ? movieVideos.filter(t => t.type === "Trailer") : "";
 
     const updateMovieVideos = useCallback(() => {
-        getMovieTrailer(movieId, language.language).then(result => setMovieVideos(result))
+        getMovieTrailer(movieId, language).then(result => setMovieVideos(result))
     }, [movieId, language])
 
     useEffect(() => {

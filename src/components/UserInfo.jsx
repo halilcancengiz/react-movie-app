@@ -1,9 +1,8 @@
-import { useEffect, memo } from 'react';
+import { useEffect, memo, useCallback } from 'react';
 import { userProfileListener, userCommentListener, getUserImageFromFirebase } from "../services/firebase/firebase";
 import { RiMovieFill, MdOutlineFeaturedPlayList, FaRegComment } from "../assets/icons/icons"
 import defaultUserImage from "../assets/images/defaultManImage.png"
 import { Tooltip } from 'antd';
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
@@ -74,13 +73,13 @@ function UserInfo({ user }) {
         <section id='user-info-container' className='w-100'>
             <div className='user-profile-photo w-100 position-relative d-flex align-items-center justify-content-center'>
                 <div className="flex-column d-flex align-items-center justify-content-center mb-5">
-                    <h4>{userDisplayName ? userDisplayName : user && user.displayName !== null ? user.displayName : t("newUser")}</h4>
+                    <h4 className='text-white'>{userDisplayName ? userDisplayName : user && user.displayName !== null ? user.displayName : t("newUser")}</h4>
                     <div className='position-relative img-container'>
                         <img id="user-image-profile" accept=".png, .jpeg, .jpg" src={userPhotoURL ? userPhotoURL : defaultUserImage} alt={userDisplayName ? userDisplayName : t("newUser")} />
                     </div>
-                    <div id='countContainer' className='d-flex align-items-center justify-content-center mt-5'>
+                    <div style={{ background: "linear-gradient(to bottom,rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))" }} id='countContainer' className='d-flex align-items-center justify-content-center mt-5 rounded-4'>
                         <Tooltip title={language.language === "en-EN" ? "List Count" : "Liste Sayısı"}>
-                            <div id='listCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column'>
+                            <div id='listCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column bg-transparent'>
                                 <MdOutlineFeaturedPlayList size={20} className='mt-1' />
                                 {
                                     userLists ? userLists.length : 0
@@ -88,7 +87,7 @@ function UserInfo({ user }) {
                             </div>
                         </Tooltip>
                         <Tooltip title={t("totalMovieCount")}>
-                            <div id='movieCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column'>
+                            <div id='movieCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column bg-transparent'>
                                 <RiMovieFill size={20} className='mt-1' />
                                 {
                                     totalMovie()
@@ -96,7 +95,7 @@ function UserInfo({ user }) {
                             </div>
                         </Tooltip>
                         <Tooltip title={t("totalCommentCount")}>
-                            <div id='commentCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column' >
+                            <div id='commentCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column bg-transparent' >
                                 <FaRegComment size={20} className='mt-1' />
                                 {
                                     userComments.length

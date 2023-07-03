@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import PersonOtherMovies from '../components/PersonOtherMovies';
 import { useTranslation } from 'react-i18next';
-import React from 'react';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 

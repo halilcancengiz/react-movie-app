@@ -1,5 +1,4 @@
 import { useState, useEffect, memo } from 'react'
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { getPersonOtherMovies } from '../services/tmdb/tmdb';
 import MovieCard from "./MovieCard";
@@ -22,8 +21,11 @@ export default memo(function PersonOtherMovies({ personId, language }) {
             <Helmet>
                 <title>{`${personName.replace(/([A-Z])/g, ' $1').trim()}`}</title>
             </Helmet>
-
-            <h4 className='webkitHeader-h4 w-100 text-center text-uppercase'>{`${personName.replace(/([A-Z])/g, ' $1').trim()}-${t("moviesFeaturing")}`}</h4>
+            <div className="d-flex flex-column container mx-auto">
+                <h4 className="webkitHeader-h4 text-center text-uppercase my-5">
+                    {`${personName.replace(/([A-Z])/g, ' $1').trim()}-${t("moviesFeaturing")}`}
+                </h4>
+            </div>
             <div className='d-flex flex-wrap align-items-center justify-content-center'>
                 {
                     otherMovies ? <MovieCard movieList={otherMovies} /> : <Empty />

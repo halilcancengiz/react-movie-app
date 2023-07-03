@@ -1,12 +1,11 @@
-import React from 'react';
 import { useCallback, useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import Pagination from '../components/Pagination';
 import MovieCard from '../components/MovieCard';
+import SearchBar from '../components/SearchBar';
+import { useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { getTopRatedMovies } from '../services/tmdb/tmdb';
 import { useTranslation } from 'react-i18next';
-import SearchBar from '../components/SearchBar';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 

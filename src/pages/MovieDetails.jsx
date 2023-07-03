@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getMovieCredits } from '../services/tmdb/tmdb';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Actors from '../components/Actors';
 import MovieTeam from '../components/MovieTeam';
 import MovieTrailer from '../components/MovieTrailer';
@@ -8,6 +6,8 @@ import SimilarMovies from '../components/SimilarMovies';
 import Loading from '../components/Loading';
 import MovieInfo from './../components/MovieInfo';
 import MovieComments from './../components/MovieComments';
+import { getMovieCredits } from '../services/tmdb/tmdb';
+import { useParams } from 'react-router-dom';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ export default function MovieDetails() {
     const selectLanguage = state => state.language;
     const getLanguage = createSelector(
         selectLanguage,
-        language => language
+        language => language.language
     )
     const language = useSelector(getLanguage);
 
@@ -25,7 +25,7 @@ export default function MovieDetails() {
 
 
     useEffect(() => {
-        getMovieCredits(id, language.language).then(result => {
+        getMovieCredits(id, language).then(result => {
             setMovieCredits(result)
             setIsLoading(false)
         })
@@ -33,9 +33,9 @@ export default function MovieDetails() {
     return (
         <>
             <main className='d-flex flex-column'>
-                <MovieInfo movieCredits={movieCredits} movieId={id} language={language.language} />
-                <MovieTrailer movieId={id} language={language.language} />
-                <SimilarMovies movieId={id} language={language.language} />
+                <MovieInfo movieCredits={movieCredits} movieId={id} language={language} />
+                <MovieTrailer movieId={id} language={language} />
+                <SimilarMovies movieId={id} language={language} />
                 <Actors movieCredits={movieCredits} />
                 <MovieTeam movieCredits={movieCredits} />
                 <MovieComments />

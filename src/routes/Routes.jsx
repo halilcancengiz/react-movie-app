@@ -2,18 +2,15 @@ import React from 'react';
 import { Routes as RouteContainer, Route } from 'react-router-dom';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-
 import HomeLayout from '../components/Layouts/HomeLayout';
 import Main from '../pages/Main';
 import SearchList from '../components/SearchList';
 import Login from '../pages/membership/Login';
 import Register from '../pages/membership/Register';
 import Profile from '../pages/Profile';
-// import PopularMoviesLayout from '../components/Layouts/PopularMoviesLayout';
 import Popular from '../pages/Popular';
 import TopRatedMovies from '../pages/TopRatedMovies';
 import PersonDetails from '../pages/PersonDetails';
-
 const LazyPopularMoviesLayout = React.lazy(() => import("../components/Layouts/PopularMoviesLayout"))
 const LazyTopRatedMoviesLayout = React.lazy(() => import("../components/Layouts/TopRatedMoviesLayout"))
 const LazyMovieDetails = React.lazy(() => import("../pages/MovieDetails"))

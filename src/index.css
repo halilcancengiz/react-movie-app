@@ -29,7 +29,7 @@ body,
 }
 
 .App {
-  background: #cbd4d4;
+  background: #0A253E;
 }
 
 h1,
@@ -59,6 +59,13 @@ code {
   color: white;
 }
 
+.ant-collapse {
+  /* border: 1px solid white!important; */
+  background: #0A253E;
+  filter: drop-shadow(0 0 3px #268cec) !important;
+  border: none !important;
+}
+
 .ant-progress-inner>.ant-progress-text {
   color: white !important;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
@@ -72,12 +79,14 @@ code {
 }
 
 .webkitHeader-h4 {
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: rgba(10, 37, 62) !important;
-  color: var(--mainColor) !important;
+  color: white;
   font-size: 1.7rem !important;
   display: inline-block !important;
-  padding: 0 !important;
+  width: max-content;
+  margin: 0 auto;
+  border-bottom: 3px solid white;
+  border-radius: 5px;
+  padding: 0 10px;
 }
 
 .darkBtn {

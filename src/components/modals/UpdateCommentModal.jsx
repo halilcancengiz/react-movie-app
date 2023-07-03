@@ -1,10 +1,8 @@
-import React,{ useState, memo } from 'react';
-import { Modal } from 'antd';
+import React, { useState, memo } from 'react';
 import { FiEdit } from "../../assets/icons/icons"
-import { Collapse } from 'antd';
-import { updateComment } from "../../services/firebase/firebase";
+import { Collapse, Modal } from 'antd';
+import { updateComment, deleteComment } from "../../services/firebase/firebase";
 import { toast } from 'react-hot-toast';
-import { deleteComment } from "../../services/firebase/firebase";
 import { useTranslation } from 'react-i18next';
 
 const UpdateCommentModal = memo(({ data, id }) => {

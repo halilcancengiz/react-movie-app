@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import MovieCard from "./../components/MovieCard";
+import Pagination from "../components/Pagination";
+import SearchBar from "./../components/SearchBar";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import { getUpcomingMovies, searchByGenreId } from "./../services/tmdb/tmdb";
 import { Helmet } from "react-helmet";
 import { posterURL } from "./../services/apiURLs";
-import MovieCard from "./../components/MovieCard";
-import Pagination from "../components/Pagination";
-import SearchBar from "./../components/SearchBar";
 import { genres } from "../utils/genres";
 import { mainSettings } from "../utils/sliderSettings";
 import { Segmented, Tooltip } from "antd";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
-import "../css/main.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import "../css/main.css";
 
 const Main = () => {
   const selectLanguage = (state) => state.language;
@@ -115,8 +115,8 @@ const Main = () => {
 
       <div className="container mx-auto p-0 text-center d-flex align-items-center justify-content-center flex-column mt-4">
         <Segmented
-          style={{ boxShadow: "0 0 10px gray", background: "#0a253e" }}
-          className="py-1 w-100 text-center text-white"
+          style={{ background: "linear-gradient(to bottom,rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))" }}
+          className="py-1 w-100 text-center text-white fw-bold"
           onChange={(e) => {
             checkGenresValue(e);
             setGenreName(e);

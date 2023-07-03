@@ -1,5 +1,4 @@
 import { SpinnerDotted } from 'spinners-react';
-import React from 'react';
 import "../css/loading.css"
 
 export default function Loading({ isLoading }) {

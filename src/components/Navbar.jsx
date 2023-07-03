@@ -1,5 +1,4 @@
-import { useEffect, useCallback } from 'react';
-import React from 'react';
+import { useEffect, useCallback, memo } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { changeTrLanguage, changeEnLanguage } from "../features/lang"
 import { NavLink } from "react-router-dom"
@@ -9,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import i18n from "../i18n";
 import { createSelector } from '@reduxjs/toolkit';
 import "../css/navbar.css"
-import { memo } from 'react';
 
 function Navbar() {
     const selectUserPhotoURL = state => state.profile.value.photoURL;
@@ -66,8 +64,8 @@ function Navbar() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul className="navbar-nav text-center">
-                        <li className="nav-item my-auto d-flex align-items-center justify-content-center">
+                    <ul className="navbar-nav text-center flex gap-3">
+                        <li className="nav-item my-auto d-flex align-items-center justify-content-center ">
                             <button onClick={toggleLanguage} className={language.language === "tr-TR" ? "activeLang" : "deActiveLang"}>TR</button>
                             <button onClick={toggleLanguage} className={language.language === "en-EN" ? "activeLang" : "deActiveLang"}>EN</button>
                         </li>

@@ -63,7 +63,7 @@ const UpdateProfileModal = () => {
 
     return (
         <>
-            <button className='cursor-pointer me-2 btn btn-success btn-sm' onClick={showModal} >
+            <button className='cursor-pointer me-2  btn btn-success btn-sm' onClick={showModal} >
                 {t("updateProfile")}
             </button>
             <Modal cancelText={t("cancel")} okText={t("update")} title={t("updateProfile")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

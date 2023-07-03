@@ -29,7 +29,7 @@ const CreateMovieListModal = () => {
     };
     return (
         <>
-            <button id='createMovieListModalButton' className='btn btn-sm me-2 d-flex align-items-center justify-content-center text-white' onClick={showModal}>
+            <button id='createMovieListModalButton' className='btn btn-sm me-2  d-flex align-items-center bg-transparent justify-content-center text-white' onClick={showModal}>
                 <BsPlusSquareFill className='me-2' />
                 {t("createAMovieList")}
             </button>

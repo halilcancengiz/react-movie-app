@@ -11,9 +11,9 @@ import { RiMovieFill } from "../assets/icons/icons";
 import { findPersonImdbHelper } from "./../utils/findPersonImdbHelper";
 import { actorsSettings } from "../utils/sliderSettings";
 import { useTranslation } from "react-i18next";
-import "../css/actors.css";
 import { createSelector } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+import "../css/actors.css";
 
 
 export default memo(function Actors({ movieCredits }) {
@@ -26,10 +26,12 @@ export default memo(function Actors({ movieCredits }) {
   const language = useSelector(getLanguage);
 
   return (
-    <div className="container">
-      <h4 className="fw-bold text-center my-5 webkitHeader-h4 text-uppercase w-100">
-        {t("actors")}
-      </h4>
+    <div className="container text-white">
+      <div className="d-flex flex-column container mx-auto">
+        <h4 className={movieCredits.crew && movieCredits.crew.length > 0 ? "webkitHeader-h4 text-center text-uppercase my-5" : "d-none"} >
+          {t("actors")}
+        </h4>
+      </div>
       {movieCredits.cast ? (
         <Slider {...actorsSettings}>
           {movieCredits.cast
@@ -43,6 +45,7 @@ export default memo(function Actors({ movieCredits }) {
               >
                 <div className="movie-actor-image-container  position-relative">
                   <Image
+                    style={{ filter: "drop-shadow(0 0 2px #268cec)" }}
                     preview={actor.profile_path === null ? false : true}
                     alt={actor.name}
                     width={150}

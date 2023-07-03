@@ -1,5 +1,4 @@
 import { useState, memo } from 'react'
-import React from 'react';
 import { Popconfirm, Empty, Collapse } from 'antd';
 import { BsTrash, FaArrowRight, FaArrowDown } from "../assets/icons/icons"
 import { deleteList } from '../services/firebase/firebase';
@@ -18,9 +17,8 @@ export default memo(function MovieList({ list, language }) {
     }
 
     return (
-        <Collapse className='my-2 text-white rounded-4 overflow-hidden'>
-
-            <div onClick={() => setShowMovies(!showMovies)} className='movie-list-container d-flex align-items-center justify-content-between p-3 '>
+        <Collapse className='my-4 text-white rounded-4 overflow-hidden'>
+            <div onClick={() => setShowMovies(!showMovies)} className='movie-list-container  rounded-4 d-flex align-items-center justify-content-between p-3 '>
                 <div className='d-flex align-items-center'>
                     {
                         !showMovies ? <FaArrowRight /> : <FaArrowDown />

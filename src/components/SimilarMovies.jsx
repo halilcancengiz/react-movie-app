@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect, memo } from 'react';
-import React from 'react';
 import { getSimilarMovies } from '../services/tmdb/tmdb';
 import { useTranslation } from 'react-i18next';
 import MovieCard from './MovieCard';
@@ -17,7 +16,11 @@ function SimilarMovies({ movieId, language }) {
     }, [updateGetSimilarMovies])
     return (
         <div className="container">
-            <h4 className="text-center text-uppercase w-100 my-5 webkitHeader-h4 fw-bold">{t("similarMovies")}</h4>
+            <div className="d-flex flex-column container mx-auto">
+                <h4 className="webkitHeader-h4 text-center text-uppercase my-5">
+                    {t("similarMovies")}
+                </h4>
+            </div>
             <div className="d-flex align-items-center justify-content-center flex-wrap">
                 {
                     similarMovies && similarMovies.length > 0 ? (

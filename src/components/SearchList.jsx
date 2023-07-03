@@ -29,7 +29,11 @@ function SearchList() {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      <h4 className='webkitHeader-h4 text-uppercase text-center w-100 my-5'>{`${query}-${t('searchResults')}`}</h4>
+      <div className="d-flex flex-column container mx-auto">
+        <h4 className="webkitHeader-h4 text-center text-uppercase my-5">
+          {`${query}-${t('searchResults')}`}
+        </h4>
+      </div>
       <div className='container d-flex align-items-center justify-content-center flex-wrap mx-auto'>
         {searchMovieList && <MovieCard movieList={searchMovieList} />}
       </div>

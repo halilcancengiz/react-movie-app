@@ -9,7 +9,6 @@ import { loginHandle, logoutHandle } from "../../features/auth"
 import { setUserComments, setMovieComments } from "../../features/comments";
 import { setDisplayName, setPhotoURL } from "../../features/userProfile";
 import { setLists } from "../../features/userLists";
-import { setAllUserImages } from "../../features/allUserImages"
 
 
 

@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { posterURL } from '../services/apiURLs';
 import { alphabetically } from './../utils/sortHelper';
@@ -11,14 +10,14 @@ import { FaImdb, RiMovieFill } from "../assets/icons/icons"
 import defaultImageMan from "../assets/images/defaultManImage.png"
 import defaultImageWoman from "../assets/images/defaultWomanImage.png"
 import { useTranslation } from 'react-i18next';
-import "../css/teams.css"
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
+import "../css/teams.css"
 
 
 export default memo(function MovieTeam({ movieCredits }) {
     const { t } = useTranslation()
-    
+
     const selectLanguage = state => state.language;
     const getLanguage = createSelector(
         selectLanguage,
@@ -27,8 +26,12 @@ export default memo(function MovieTeam({ movieCredits }) {
     const language = useSelector(getLanguage);
 
     return (
-        <div className='container'>
-            <h4 className={movieCredits.crew && movieCredits.crew.length > 0 ? "fw-bold text-center text-uppercase w-100 my-5 webkitHeader-h4" : "d-none"}>{t("team")}</h4>
+        <div className='container text-white'>
+            <div className="d-flex flex-column container mx-auto">
+                <h4 className={movieCredits.crew && movieCredits.crew.length > 0 ? "webkitHeader-h4 text-center text-uppercase my-5" : "d-none"} >
+                    {t("team")}
+                </h4>
+            </div>
             {
                 movieCredits ? (
                     <Slider {...teamSettings}>
@@ -37,6 +40,7 @@ export default memo(function MovieTeam({ movieCredits }) {
                                 <div className='d-flex flex-column align-items-center justify-content-center me-5 position-relative' key={index} data-bs-toggle="tooltip" data-bs-placement="top" title={team.name} >
                                     <div className="movie-actor-image-container  position-relative">
                                         <Image
+                                            style={{ filter: "drop-shadow(0 0 2px #268cec)" }}
                                             preview={team.profile_path === null ? false : true}
                                             alt={team.name}
                                             width={150}

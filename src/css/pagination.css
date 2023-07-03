@@ -1,20 +1,27 @@
 .pagination-button:disabled {
   color: gray !important;
 }
+
 .pagination-button {
-  color: rgba(10, 37, 62, 1);
+  color: white;
 }
+
 button {
   background: transparent;
 }
 
 .deactive {
   background: transparent !important;
-  border: 0.5px solid rgba(10, 37, 62, 1) !important;
-  color: white;
+  border: 0.5px solid white !important;
+  color: white !important;
 }
 
-#pagination-container > .active {
-  background: rgba(10, 37, 62, 1) !important;
-  border: none;
+.activebtn {
+  background: white!important;
+  color: #0A253E!important;
+}
+
+#pagination-container>.active {
+  border: 0.5px solid white !important;
+  background: white;
 }

@@ -51,7 +51,7 @@ const MovieCard = memo(({ movieList, size, listId }) => {
             }
           >
             <NavLink
-              to={`/movie/${movie.id}/${movie.title.replace(/\s/g, "")}`}
+              to={`/movie/${movie.id}/${movie.title.replace(/\s/g, "").toLowerCase()}`}
             >
               {movie.overview && (
                 <Tooltip placement="right" title={movie.overview}>

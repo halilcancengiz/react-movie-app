@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { getPopularMovies } from '../services/tmdb/tmdb';
+import { useEffect, useState, useCallback } from 'react'
 import Pagination from '../components/Pagination';
 import MovieCard from './../components/MovieCard';
 import SearchBar from '../components/SearchBar';
+import { getPopularMovies } from '../services/tmdb/tmdb';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';

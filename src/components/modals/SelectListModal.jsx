@@ -1,13 +1,12 @@
 import React, { useState, memo, useEffect } from 'react';
-import { getLists } from './../../services/firebase/firebase';
-import { addMovieToList } from '../../services/firebase/firebase';
+import { getLists, addMovieToList } from './../../services/firebase/firebase';
 import CreateMovieListModal from './CreateMovieListModal';
 import { toast } from 'react-hot-toast';
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next';
-import "../../css/selectListModal.css"
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
+import "../../css/selectListModal.css"
 
 const SelectListModal = ({ movie }) => {
     const { t } = useTranslation()
