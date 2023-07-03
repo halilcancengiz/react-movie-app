@@ -9,6 +9,15 @@
   box-shadow: 0 0 3px #268cec !important;
 }
 
+#updatecommentmodal {
+  filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+#updatecommentmodal::placeholder{
+  color: gray;
+}
+
 .comment-area::placeholder {
   text-transform: capitalize !important;
   color: white;

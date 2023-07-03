@@ -31,7 +31,7 @@ const UpdateCommentModal = memo(({ data, id }) => {
     return (
         <>
             <FiEdit
-                color="#0A253E"
+                color="white"
                 size={20}
                 className="cursor-pointer"
                 onClick={showModal}
@@ -39,22 +39,23 @@ const UpdateCommentModal = memo(({ data, id }) => {
             <Modal
                 cancelText={t("cancel")}
                 okText={t("send")}
-                title={"currentComment"}
+                title="Current Comment"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
             >
-                <Collapse>
+                <div>
                     <textarea
+                        style={{ background: "white", filter: "none", boxShadow: "none" }}
                         onChange={(e) => setUpdateCommentDescription(e.target.value)}
                         maxLength={150}
                         placeholder={t("Please write your comment...")}
-                        className="comment-area w-100"
-                        id=""
+                        className="comment-area w-100 text-dark"
+                        id="updatecommentmodal"
                         cols="30"
                         rows="10"
                     ></textarea>
-                </Collapse>
+                </div>
             </Modal>
         </>
     );

@@ -141,8 +141,8 @@ export default function MovieComments() {
       {
         movieComments && movieComments.length > 0 ? movieComments.map((comment) => {
           return (
-            <Collapse  key={comment.id} className='w-100 d-flex flex-column align-items-start justify-content-center mb-3 rounded-3 shadow-lg'>
-              <div className='d-flex align-items-center justify-content-between  w-100 pt-4 px-4 border-bottom pb-4'>
+            <Collapse  key={comment.id} className='w-100 d-flex flex-column align-items-start justify-content-center text-white mb-3 rounded-3 shadow-lg'>
+              <div className='d-flex align-items-center justify-content-between  w-100 pt-4 px-4 '>
                 <div className="d-flex">
                   <div className='comment-author-avatar me-3'>
                     <img width={45} height={45} className="rounded-circle object-fit-contain" src={findAuthorImage(comment.commentData.authorId, allAuthorsImage)} alt="author-avatar" />
@@ -176,10 +176,10 @@ export default function MovieComments() {
                 }
 
               </div>
-              <div className='comment-content  px-4 pt-2'>
+              <div className='comment-content  px-4 pt-2 my-3'>
                 <p className="m-0">{comment.commentData.description}</p>
               </div>
-              <div className='comment-footer d-flex align-items-center  w-100 px-4 py-2 border border-bottom-0 border-end-0 border-start-0 mt-3'>
+              <div className='comment-footer d-flex align-items-center  w-100 px-4 py-2  mt-3'>
                 <div className='comment-like-button d-flex align-items-center justify-content-center'>
                   <div onClick={() => handleLike(comment.id)} className='comment-like-button-icon cursor-pointer'>
                     <AiFillLike id='likeBtn' color='#2EB086' size={20} />
