@@ -79,7 +79,7 @@ function UserInfo({ user }) {
                         <img id="user-image-profile" accept=".png, .jpeg, .jpg" src={userPhotoURL ? userPhotoURL : defaultUserImage} alt={userDisplayName ? userDisplayName : t("newUser")} />
                     </div>
                     <div id='countContainer' className='d-flex align-items-center justify-content-center mt-5'>
-                        <Tooltip title={language === "en-EN" ? "List Count" : "Liste Sayısı"}>
+                        <Tooltip title={language.language === "en-EN" ? "List Count" : "Liste Sayısı"}>
                             <div id='listCount' className='px-5 py-2 rounded-3 darkBtn text-white mx-3 d-flex align-items-center justify-content-center flex-column'>
                                 <MdOutlineFeaturedPlayList size={20} className='mt-1' />
                                 {

@@ -22,7 +22,7 @@ function PersonDetails() {
                 <title>{`${personName.replace(/([A-Z])/g, ' $1').trim()}${t("moviesFeaturing")}`}</title>
                 <meta name="description" content={`${personName.replace(/([A-Z])/g, ' $1').trim()}${t("moviesFeaturing")}`} />
             </Helmet>
-            <PersonOtherMovies personId={personId} language={language} />
+            <PersonOtherMovies personId={personId} language={language.language} />
         </div>
     )
 }

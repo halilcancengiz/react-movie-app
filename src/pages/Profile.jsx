@@ -79,7 +79,7 @@ function Profile() {
             </div>
             {
                 sortedLists && sortedLists.length > 0 ? sortedLists.map(list => (
-                    <MovieList key={list.id} list={list} language={language} />
+                    <MovieList key={list.id} list={list} language={language.language} />
                 )) : <Empty className='mt-5' description={t("thereAreNoMoviesYet")} />
             }
             {/* SECOND AREA END */}

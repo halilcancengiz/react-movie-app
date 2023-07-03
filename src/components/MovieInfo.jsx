@@ -15,7 +15,7 @@ export default memo(function MovieInfo({ movieId, movieCredits, language }) {
 
     // useCallback START
     const updateMovieDetailsAndCredits = useCallback(async () => {
-        await getMovieDetails(movieId, language).then(result => setMovieDetail(result))
+        await getMovieDetails(movieId, language.language).then(result => setMovieDetail(result))
         if (movieCredits && movieCredits.crew) {
             const writer = movieCredits.crew.filter(crew => crew.department === "Writing");
             const director = movieCredits.crew.filter(crew => crew.department === "Directing")

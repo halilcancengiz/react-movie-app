@@ -47,7 +47,7 @@ export default memo(function MovieTeam({ movieCredits }) {
                                         {
                                             team.profile_path === null ? "" : (
                                                 <div className='d-flex align-items-center justify-content-between person-info-container w-100'>
-                                                    <div className='cursor-pointer' onClick={() => findPersonImdbHelper(team.id, language)}>
+                                                    <div className='cursor-pointer' onClick={() => findPersonImdbHelper(team.id, language.language)}>
                                                         <Tooltip title={`${team.name} IMDB`}>
                                                             <FaImdb size={35} color="#DFB31D" className="m-2 icon-shadow" />
                                                         </Tooltip>

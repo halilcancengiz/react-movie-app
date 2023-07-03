@@ -25,7 +25,7 @@ function TopRatedMovies() {
     const { t } = useTranslation()
 
     const updateGetTopRatedMovies = useCallback(async () => {
-        const result = await getTopRatedMovies(page, language)
+        const result = await getTopRatedMovies(page, language.language)
         setTopRatedMovies(result)
     }, [page, language])
 

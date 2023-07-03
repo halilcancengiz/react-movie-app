@@ -25,7 +25,7 @@ export default function MovieDetails() {
 
 
     useEffect(() => {
-        getMovieCredits(id, language).then(result => {
+        getMovieCredits(id, language.language).then(result => {
             setMovieCredits(result)
             setIsLoading(false)
         })
@@ -33,9 +33,9 @@ export default function MovieDetails() {
     return (
         <>
             <main className='d-flex flex-column'>
-                <MovieInfo movieCredits={movieCredits} movieId={id} language={language} />
-                <MovieTrailer movieId={id} language={language} />
-                <SimilarMovies movieId={id} language={language} />
+                <MovieInfo movieCredits={movieCredits} movieId={id} language={language.language} />
+                <MovieTrailer movieId={id} language={language.language} />
+                <SimilarMovies movieId={id} language={language.language} />
                 <Actors movieCredits={movieCredits} />
                 <MovieTeam movieCredits={movieCredits} />
                 <MovieComments />

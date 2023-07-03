@@ -108,7 +108,7 @@ const MovieCard = memo(({ movieList, size, listId }) => {
                 </NavLink>
                 <div className="deleteMovieBtn text-center d-flex align-items-center">
                   <Popconfirm
-                    title={`${language === "en-EN"
+                    title={`${language.language === "en-EN"
                       ? `Are you sure you want to remove the ${movie.data.original_title}?`
                       : `${movie.data.original_title}'ı kaldırmak istediğinize emin misinz?`
                       }`}

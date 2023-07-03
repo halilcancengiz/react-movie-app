@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
 import { getUpcomingMovies, searchByGenreId } from "./../services/tmdb/tmdb";
 import { Helmet } from "react-helmet";
 import { posterURL } from "./../services/apiURLs";
@@ -13,17 +15,14 @@ import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
 import "../css/main.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useSelector } from "react-redux";
-import { createSelector } from "@reduxjs/toolkit";
 
 function Main() {
   const selectLanguage = state => state.language;
   const getLanguage = createSelector(
     selectLanguage,
     language => language
-  )
+  );
   const language = useSelector(getLanguage);
-
 
   const [movies, setMovies] = useState([]);
   const [genreId, setGenreId] = useState(null);
@@ -32,35 +31,27 @@ function Main() {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
   const genresName = genres.map((name) =>
-    language === "en-EN" ? name.en : name.tr
+    language.language === "en-EN" ? name.en : name.tr
   );
   const { t } = useTranslation();
 
   const checkGenresValue = useCallback(
     (e) => {
-      if (language === "tr-TR") {
-        const findGenre = genres.find((x) => x.tr === e);
-        if (findGenre && findGenre.id) {
-          const result = findGenre.id;
-          setGenreId(result);
-          setSearchParams(1);
-        }
-      } else {
-        const findGenre = genres.find((x) => x.en === e);
-        if (findGenre && findGenre.id) {
-          const result = findGenre.id;
-          setGenreId(result);
-          setSearchParams(1);
-        }
+      const findGenre = genres.find((x) =>
+        language.language === "tr-TR" ? x.tr === e : x.en === e
+      );
+      if (findGenre && findGenre.id) {
+        setGenreId(findGenre.id);
+        setSearchParams(1);
       }
     },
     [language, setSearchParams]
   );
 
   useEffect(() => {
-    getUpcomingMovies(language).then((result) => setMovies(result));
+    getUpcomingMovies(language.language).then((result) => setMovies(result));
     checkGenresValue();
-    searchByGenreId(genreId, page, language).then((result) =>
+    searchByGenreId(genreId, page, language.language).then((result) =>
       setSearchList(result)
     );
   }, [language, genreId, page, checkGenresValue]);
@@ -70,7 +61,7 @@ function Main() {
       <Helmet>
         <title>
           {genreName
-            ? `${genreName} Filmleri - ${`Sayfa-${page}`}`
+            ? `${genreName} Filmleri - Sayfa-${page}`
             : t("mainPage")}
         </title>
         <meta
@@ -86,8 +77,8 @@ function Main() {
       </div>
       <div className="container">
         <Slider {...mainSettings}>
-          {movies
-            ? movies.map((item, index) => (
+          {movies &&
+            movies.map((item) => (
               <div key={item.id}>
                 <NavLink
                   to={`/movie/${item.id}/${item.title.replace(/\s/g, "")}`}
@@ -98,7 +89,7 @@ function Main() {
                       style={{
                         boxShadow: "0 0 10px black",
                         borderRadius: "20px",
-                        margin: "10px"
+                        margin: "10px",
                       }}
                       effect="blur"
                       width="150px"
@@ -110,8 +101,7 @@ function Main() {
                   </Tooltip>
                 </NavLink>
               </div>
-            ))
-            : ""}
+            ))}
         </Slider>
       </div>
       <h4 className="webkitHeader-h4 text-center text-uppercase mt-5">
@@ -129,7 +119,7 @@ function Main() {
         />
       </div>
       <div className="searchList d-flex flex-wrap mx-auto container align-items-center justify-content-center">
-        {searchList ? <MovieCard movieList={searchList} /> : ""}
+        {searchList && <MovieCard movieList={searchList} />}
       </div>
 
       <Pagination page={page} setSearchParams={setSearchParams} />
@@ -137,4 +127,5 @@ function Main() {
     </div>
   );
 }
+
 export default Main;

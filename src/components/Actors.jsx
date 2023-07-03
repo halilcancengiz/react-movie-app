@@ -64,7 +64,7 @@ export default memo(function Actors({ movieCredits }) {
                       <div
                         className="cursor-pointer"
                         onClick={() =>
-                          findPersonImdbHelper(actor.id, language)
+                          findPersonImdbHelper(actor.id, language.language)
                         }
                       >
                         <Tooltip title={`'${actor.name}' IMDB`}>

@@ -25,7 +25,7 @@ const Popular = () => {
   const { t } = useTranslation()
 
   const updateGetPopularMovies = useCallback(async () => {
-    getPopularMovies(page, language).then(result => setPopularMovies(result))
+    getPopularMovies(page, language.language).then(result => setPopularMovies(result))
   }, [page, language])
 
   useEffect(() => {

@@ -28,7 +28,7 @@ export default memo(function MovieList({ list, language }) {
                     <span className='ms-3 text-capitalize'>{list.listData.list_name}</span>
                 </div>
                 <Popconfirm
-                    title={` ${language === "en-EN" ? `Are you sure you want to delete the "${list.listData.list_name}" list?` : `"${list.listData.list_name}" listesini silmek istediğinize emin misiniz?`}`}
+                    title={` ${language.language === "en-EN" ? `Are you sure you want to delete the "${list.listData.list_name}" list?` : `"${list.listData.list_name}" listesini silmek istediğinize emin misiniz?`}`}
                     onConfirm={() => handleDelete(list.id)}
                     okText={t("yes")}
                     cancelText={t("no")}

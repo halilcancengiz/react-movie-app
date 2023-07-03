@@ -11,7 +11,7 @@ export default memo(function MovieTrailer({ movieId, language }) {
     const officialTrailer = movieVideos ? movieVideos.filter(t => t.type === "Trailer") : "";
 
     const updateMovieVideos = useCallback(() => {
-        getMovieTrailer(movieId, language).then(result => setMovieVideos(result))
+        getMovieTrailer(movieId, language.language).then(result => setMovieVideos(result))
     }, [movieId, language])
 
     useEffect(() => {

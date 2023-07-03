@@ -72,10 +72,10 @@ function Navbar() {
                             <button onClick={toggleLanguage} className={language.language === "en-EN" ? "activeLang" : "deActiveLang"}>EN</button>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/popular-movies/?page=1" aria-current="page">{t("popularMovies")}</NavLink>
+                            <NavLink className="nav-link" to="/popular-movies/" aria-current="page">{t("popularMovies")}</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/top-rated-movies/?page=1">{t("topRatedMovies")}</NavLink>
+                            <NavLink className="nav-link" to="/top-rated-movies/">{t("topRatedMovies")}</NavLink>
                         </li>
                         {
                             user ? (

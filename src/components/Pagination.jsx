@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useEffect, useState, memo } from 'react';
 import React from 'react';
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill, BsArrowBarLeft, BsArrowBarRight } from "../assets/icons/icons"
 import { Tooltip } from 'antd';
