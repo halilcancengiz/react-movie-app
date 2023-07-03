@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import "../css/search-bar.css"
 
 function SearchBar() {
-    console.count("Search Bar")
     const { t } = useTranslation()
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("")

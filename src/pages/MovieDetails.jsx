@@ -14,7 +14,6 @@ import useRedux from "../hooks/useRedux"
 
 
 export default function MovieDetails() {
-    console.count("Movie Details")
     const { id, title } = useParams();
     const { language } = useRedux()
     // STATES

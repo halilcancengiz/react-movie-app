@@ -11,7 +11,6 @@ import "../css/userinfo.css"
 
 
 function UserInfo({ user }) {
-    console.count("UserInfo")
     const { t } = useTranslation()
     const { userDisplayName, userComments, userLists, userPhotoURL, language } = useRedux()
     const totalMovie = useCallback(() => {

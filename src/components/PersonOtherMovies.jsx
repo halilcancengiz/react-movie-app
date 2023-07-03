@@ -9,7 +9,6 @@ import { Helmet } from 'react-helmet';
 
 
 export default memo(function PersonOtherMovies({ personId, language }) {
-    console.count("PersonOtherMovies")
     const { t } = useTranslation()
     const [otherMovies, setOtherMovies] = useState([])
     let { personName } = useParams()

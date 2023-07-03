@@ -7,7 +7,6 @@ import { getMovieDetails } from "../services/tmdb/tmdb";
 import "../css/movie-info.css"
 
 export default memo(function MovieInfo({ movieId, movieCredits, language }) {
-    console.count("MovieeInfo")
     const { t } = useTranslation()
     const [movieDetails, setMovieDetail] = useState([]);
     const [movieWriter, setMovieWriter] = useState([]);

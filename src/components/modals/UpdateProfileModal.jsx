@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
 
 const UpdateProfileModal = () => {
-    console.count("Update Profile Modal")
     const { t } = useTranslation()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [displayNameInputValue, setDisplayNameInputValue] = useState("")

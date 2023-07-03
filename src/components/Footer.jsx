@@ -3,7 +3,6 @@ import React from 'react';
 import "../css/footer.css"
 
 function Footer() {
-    console.count("Footer")
     const { t } = useTranslation()
     return (
         <footer className='container-fluid d-flex align-items-center justify-content-center p-5'>

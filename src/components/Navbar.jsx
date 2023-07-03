@@ -11,7 +11,6 @@ import i18n from "../i18n";
 import "../css/navbar.css"
 
 function Navbar() {
-    console.count("Navbar")
     const { user, language, userPhotoURL, userDisplayName } = UseRedux()
     const dispatch = useDispatch()
     const { t } = useTranslation();

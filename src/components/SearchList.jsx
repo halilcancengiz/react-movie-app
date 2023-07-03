@@ -8,7 +8,6 @@ import SearchBar from './SearchBar';
 import { useTranslation } from 'react-i18next';
 
 function SearchList() {
-    console.count("SearchList")
     const { t } = useTranslation()
     const [searchMovieList, setSearchMovieList] = useState([])
     const { query } = useParams()

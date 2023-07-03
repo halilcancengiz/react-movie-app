@@ -14,7 +14,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import ".././css/movieCard.css";
 
 const MovieCard = memo(({ movieList, size, listId }) => {
-  console.count("Movie Card");
   const { t } = useTranslation();
   const { user, language } = useRedux();
   return (

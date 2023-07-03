@@ -6,7 +6,6 @@ import "../../css/forgot-password-modal.css"
 
 
 const ForgotPasswordModal = () => {
-    console.count("Forgot Password Modal")
     const { t } = useTranslation()
     const [email, setEmail] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);

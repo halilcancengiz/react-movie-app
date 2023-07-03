@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import MovieCard from './MovieCard';
 
 function SimilarMovies({ movieId, language }) {
-    console.count("Similar Movie")
     const { t } = useTranslation()
     const [similarMovies, setSimilarMovies] = useState([])
 

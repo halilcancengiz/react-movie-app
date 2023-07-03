@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import "../../css/create-movie-list-modal.css"
 
 const CreateMovieListModal = () => {
-    console.count("CreateMovieListModal");
     const { t } = useTranslation()
     const [listName, setListName] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);

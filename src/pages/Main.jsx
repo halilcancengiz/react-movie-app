@@ -16,7 +16,6 @@ import "../css/main.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function Main() {
-  console.count("Main");
   const [movies, setMovies] = useState([]);
   const [genreId, setGenreId] = useState(null);
   const [genreName, setGenreName] = useState(null);

@@ -10,7 +10,6 @@ import "../css/movielist.css"
 
 
 export default memo(function MovieList({ list, language }) {
-    console.count("Movie List")
     const { t } = useTranslation()
     const [showMovies, setShowMovies] = useState(false)
     const handleDelete = async (id) => {

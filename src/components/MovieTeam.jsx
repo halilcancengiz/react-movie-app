@@ -16,7 +16,6 @@ import "../css/teams.css"
 
 
 export default memo(function MovieTeam({ movieCredits }) {
-    console.count("Movie Team")
     const { t } = useTranslation()
     const { language } = useRedux()
 

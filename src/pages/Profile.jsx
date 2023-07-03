@@ -14,7 +14,6 @@ import { Empty } from 'antd';
 import "../css/profile.css"
 
 function Profile() {
-    console.count("Profile")
     const { userName } = useParams()
     const dispatch = useDispatch()
     const { user, userLists, language } = useRedux()

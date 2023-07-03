@@ -11,7 +11,6 @@ import SearchBar from '../components/SearchBar';
 
 
 function TopRatedMovies() {
-    console.count("rendered Toprated");
     const [topRatedMovies, setTopRatedMovies] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get("page") || 1;

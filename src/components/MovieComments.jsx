@@ -13,7 +13,6 @@ import "../css/comment.css"
 
 
 export default function MovieComments() {
-  console.count("Movie Comments")
   const { t } = useTranslation()
   const { user, movieComments } = useRedux()
   const [commentDescription, setCommentDescription] = useState("");

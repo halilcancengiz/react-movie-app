@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import "../css/movie-trailer.css"
 
 export default memo(function MovieTrailer({ movieId, language }) {
-    console.count("Movie Trailer")
     const { t } = useTranslation()
     const [movieVideos, setMovieVideos] = useState([]);
 

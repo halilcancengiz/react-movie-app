@@ -16,7 +16,6 @@ import "../css/actors.css";
 
 
 export default memo(function Actors({ movieCredits }) {
-  console.count("Actor")
   const { t } = useTranslation();
   const { language } = useRedux();
 

@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 function PersonDetails() {
-    console.count("Person Datails")
     const { personId, personName } = useParams()
     const { language } = useRedux()
     const { t } = useTranslation()

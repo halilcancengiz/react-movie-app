@@ -8,7 +8,6 @@ import { deleteComment } from "../../services/firebase/firebase";
 import { useTranslation } from 'react-i18next';
 
 const UpdateCommentModal = memo(({ data, id }) => {
-    console.count("Update Comment Modal")
     const { t } = useTranslation()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [updateCommentDescription, setUpdateCommentDescription] = useState(null);

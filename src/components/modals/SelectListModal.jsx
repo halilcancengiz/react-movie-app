@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import "../../css/selectListModal.css"
 
 const SelectListModal = ({ movie }) => {
-    console.count("Select List Modal")
     const { t } = useTranslation()
     const { userLists, user } = useRedux()
     const [listId, setListId] = useState("")

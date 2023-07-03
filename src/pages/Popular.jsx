@@ -11,7 +11,6 @@ import "../css/popular.css"
 
 
 const Popular = () => {
-  console.count("Popular")
   const { language } = useRedux()
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get("page") || 1;
