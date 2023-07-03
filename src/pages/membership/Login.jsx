@@ -9,7 +9,6 @@ import "../../css/membership.css"
 
 
 const Login = () => {
-  console.count("Login")
   const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState(false)
   const location = useLocation()

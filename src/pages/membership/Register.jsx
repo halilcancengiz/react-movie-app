@@ -12,7 +12,6 @@ import "../../css/membership.css"
 
 
 export default function Register() {
-    console.count("Register")
     const { t } = useTranslation()
     const navigate = useNavigate()
     const [register, setRegister] = useState({
