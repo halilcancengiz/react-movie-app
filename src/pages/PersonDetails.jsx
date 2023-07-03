@@ -1,13 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import PersonOtherMovies from '../components/PersonOtherMovies';
-import useRedux from '../hooks/useRedux';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 function PersonDetails() {
+    const selectLanguage = state => state.language;
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const language = useSelector(getLanguage);
     const { personId, personName } = useParams()
-    const { language } = useRedux()
     const { t } = useTranslation()
 
     return (

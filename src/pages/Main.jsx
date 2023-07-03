@@ -6,7 +6,6 @@ import { posterURL } from "./../services/apiURLs";
 import MovieCard from "./../components/MovieCard";
 import Pagination from "../components/Pagination";
 import SearchBar from "./../components/SearchBar";
-import useRedux from "../hooks/useRedux";
 import { genres } from "../utils/genres";
 import { mainSettings } from "../utils/sliderSettings";
 import { Segmented, Tooltip } from "antd";
@@ -14,13 +13,22 @@ import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
 import "../css/main.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
 
 function Main() {
+  const selectLanguage = state => state.language;
+  const getLanguage = createSelector(
+    selectLanguage,
+    language => language
+  )
+  const language = useSelector(getLanguage);
+
+
   const [movies, setMovies] = useState([]);
   const [genreId, setGenreId] = useState(null);
   const [genreName, setGenreName] = useState(null);
   const [searchList, setSearchList] = useState([]);
-  const { language } = useRedux();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
   const genresName = genres.map((name) =>
@@ -80,29 +88,29 @@ function Main() {
         <Slider {...mainSettings}>
           {movies
             ? movies.map((item, index) => (
-                <div key={item.id}>
-                  <NavLink
-                    to={`/movie/${item.id}/${item.title.replace(/\s/g, "")}`}
-                    className="h-100 d-flex align-items-center justify-content-center p-0 m-0"
-                  >
-                    <Tooltip title={item.original_title}>
-                      <LazyLoadImage
-                        style={{
-                          boxShadow: "0 0 10px black",
-                          borderRadius: "20px",
-                          margin:"10px"
-                        }}
-                        effect="blur"
-                        width="150px"
-                        height="100%"
-                        alt={item.original_title}
-                        src={posterURL(item.poster_path)}
-                        placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
-                      />
-                    </Tooltip>
-                  </NavLink>
-                </div>
-              ))
+              <div key={item.id}>
+                <NavLink
+                  to={`/movie/${item.id}/${item.title.replace(/\s/g, "")}`}
+                  className="h-100 d-flex align-items-center justify-content-center p-0 m-0"
+                >
+                  <Tooltip title={item.original_title}>
+                    <LazyLoadImage
+                      style={{
+                        boxShadow: "0 0 10px black",
+                        borderRadius: "20px",
+                        margin: "10px"
+                      }}
+                      effect="blur"
+                      width="150px"
+                      height="100%"
+                      alt={item.original_title}
+                      src={posterURL(item.poster_path)}
+                      placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
+                    />
+                  </Tooltip>
+                </NavLink>
+              </div>
+            ))
             : ""}
         </Slider>
       </div>

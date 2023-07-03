@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMovieCredits } from '../services/tmdb/tmdb';
 import { useParams } from 'react-router-dom';
 import Actors from '../components/Actors';
@@ -8,18 +8,20 @@ import SimilarMovies from '../components/SimilarMovies';
 import Loading from '../components/Loading';
 import MovieInfo from './../components/MovieInfo';
 import MovieComments from './../components/MovieComments';
-import useRedux from "../hooks/useRedux"
-
-// import "../css/movie-details.css";
-
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 export default function MovieDetails() {
+    const selectLanguage = state => state.language;
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const language = useSelector(getLanguage);
+
     const { id, title } = useParams();
-    const { language } = useRedux()
-    // STATES
     const [isLoading, setIsLoading] = useState(true)
     const [movieCredits, setMovieCredits] = useState([]);
-    // VARIABLES
 
 
     useEffect(() => {

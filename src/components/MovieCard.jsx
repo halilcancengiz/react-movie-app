@@ -8,61 +8,79 @@ import { rateColorHelper } from "./../utils/rateColorHelper";
 import { Tooltip, Progress, Popconfirm } from "antd";
 import { BsTrash } from "../assets/icons/icons";
 import { useTranslation } from "react-i18next";
-import useRedux from "../hooks/useRedux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ".././css/movieCard.css";
+import { createSelector } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 const MovieCard = memo(({ movieList, size, listId }) => {
+
+  const selectUser = state => state.auth.user;
+  const selectLanguage = state => state.language;
+
+  const getUser = createSelector(
+    selectUser,
+    user => user
+  )
+  const getLanguage = createSelector(
+    selectLanguage,
+    language => language
+  )
+
+  const language = useSelector(getLanguage);
+  const user = useSelector(getUser);
+
+
+
   const { t } = useTranslation();
-  const { user, language } = useRedux();
   return (
     <>
       {movieList && !listId
         ? movieList.map((movie) => (
-            <div
-              key={movie.id}
-              style={{
-                width: `${size ? size + "px" : "240px"}`,
-                height: `${size ? size * 1.25 + "px" : "300px"}`,
-              }}
-              className={
-                !movie.poster_path || !movie.overview
-                  ? "d-none"
-                  : "movie-card  m-3 position-relative rounded-3 overflow-hidden"
-              }
+          <div
+            key={movie.id}
+            style={{
+              width: `${size ? size + "px" : "240px"}`,
+              height: `${size ? size * 1.25 + "px" : "300px"}`,
+            }}
+            className={
+              !movie.poster_path || !movie.overview
+                ? "d-none"
+                : "movie-card  m-3 position-relative rounded-3 overflow-hidden"
+            }
+          >
+            <NavLink
+              to={`/movie/${movie.id}/${movie.title.replace(/\s/g, "")}`}
             >
-              <NavLink
-                to={`/movie/${movie.id}/${movie.title.replace(/\s/g, "")}`}
-              >
-                {movie.overview && (
-                  <Tooltip placement="right" title={movie.overview}>
-                    <LazyLoadImage
-                      effect="blur"
-                      width="100%"
-                      height="100%"
-                      alt={movie.original_title}
-                      src={posterURL(movie.poster_path)}
-                      placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
-                    />
-                  </Tooltip>
-                )}
-                {!size && movie.vote_average && (
-                  <Progress
-                    className="mt-2 bg-white bg-transparent"
-                    width={70}
-                    strokeColor={rateColorHelper(movie.vote_average)}
-                    type="circle"
-                    percent={movie.vote_average * 10}
-                    format={() => movie.vote_average.toFixed(1)}
+              {movie.overview && (
+                <Tooltip placement="right" title={movie.overview}>
+                  <LazyLoadImage
+                    effect="blur"
+                    width="100%"
+                    height="100%"
+                    alt={movie.original_title}
+                    src={posterURL(movie.poster_path)}
+                    placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
                   />
-                )}
-              </NavLink>
-              {user && !size && !listId && <SelectListModal movie={movie} />}
-            </div>
-          ))
+                </Tooltip>
+              )}
+              {!size && movie.vote_average && (
+                <Progress
+                  className="mt-2 bg-white bg-transparent"
+                  width={70}
+                  strokeColor={rateColorHelper(movie.vote_average)}
+                  type="circle"
+                  percent={movie.vote_average * 10}
+                  format={() => movie.vote_average.toFixed(1)}
+                />
+              )}
+            </NavLink>
+            {user && !size && !listId && <SelectListModal movie={movie} />}
+          </div>
+        ))
         : movieList && listId
-        ? movieList.map((movie) => (
+          ? movieList.map((movie) => (
             <div
               key={movie.data.id}
               style={{
@@ -90,11 +108,10 @@ const MovieCard = memo(({ movieList, size, listId }) => {
                 </NavLink>
                 <div className="deleteMovieBtn text-center d-flex align-items-center">
                   <Popconfirm
-                    title={`${
-                      language === "en-EN"
-                        ? `Are you sure you want to remove the ${movie.data.original_title}?`
-                        : `${movie.data.original_title}'ı kaldırmak istediğinize emin misinz?`
-                    }`}
+                    title={`${language === "en-EN"
+                      ? `Are you sure you want to remove the ${movie.data.original_title}?`
+                      : `${movie.data.original_title}'ı kaldırmak istediğinize emin misinz?`
+                      }`}
                     onConfirm={() => deleteMovieToList(movie, listId)}
                     okText={t("yes")}
                     cancelText={t("no")}
@@ -109,7 +126,7 @@ const MovieCard = memo(({ movieList, size, listId }) => {
               </div>
             </div>
           ))
-        : ""}
+          : ""}
     </>
   );
 });

@@ -1,19 +1,36 @@
-import React,{ useState, memo, useEffect } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { getLists } from './../../services/firebase/firebase';
 import { addMovieToList } from '../../services/firebase/firebase';
 import CreateMovieListModal from './CreateMovieListModal';
 import { toast } from 'react-hot-toast';
 import { Modal } from 'antd';
-import useRedux from "../../hooks/useRedux"
 import { useTranslation } from 'react-i18next';
 import "../../css/selectListModal.css"
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 const SelectListModal = ({ movie }) => {
     const { t } = useTranslation()
-    const { userLists, user } = useRedux()
+
+    const selectUser = state => state.auth.user;
+    const selectUserLists = state => state.uLists.value
+    const getUserLists = createSelector(
+        selectUserLists,
+        userLists => userLists
+    )
+    const getUser = createSelector(
+        selectUser,
+        user => user
+    )
+
+    const userLists = useSelector(getUserLists);
+    const user = useSelector(getUser);
+
+
+
     const [listId, setListId] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
-      
+
     const showModal = () => {
         setIsModalOpen(true);
     };

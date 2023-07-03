@@ -1,22 +1,41 @@
-import React,{ useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutHandle } from '../features/auth';
 import { firebaseLogout, getLists } from "../services/firebase/firebase";
 import CreateMovieListModal from "../components/modals/CreateMovieListModal"
 import UpdateProfileModal from './../components/modals/UpdateProfileModal';
 import MovieList from './../components/MovieList';
 import UserInfo from '../components/UserInfo';
-import useRedux from '../hooks/useRedux';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { Empty } from 'antd';
+import { createSelector } from '@reduxjs/toolkit';
 import "../css/profile.css"
 
 function Profile() {
+    const selectLanguage = state => state.language;
+    const selectUser = state => state.auth.user
+    const selectUserLists = state => state.uLists.value
+
+    const getUserLists = createSelector(
+        selectUserLists,
+        userLists => userLists
+    )
+    const getUser = createSelector(
+        selectUser,
+        user => user
+    )
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const language = useSelector(getLanguage);
+    const user = useSelector(getUser);
+    const userLists = useSelector(getUserLists);
+
     const { userName } = useParams()
     const dispatch = useDispatch()
-    const { user, userLists, language } = useRedux()
     const navigate = useNavigate()
     const sortedLists = [...userLists].sort((a, b) => new Date(b.listData.createdAt) - new Date(a.listData.createdAt))
     const { t } = useTranslation()

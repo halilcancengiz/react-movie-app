@@ -4,14 +4,21 @@ import Pagination from '../components/Pagination';
 import MovieCard from './../components/MovieCard';
 import SearchBar from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
-import useRedux from '../hooks/useRedux';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import "../css/popular.css"
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 
 const Popular = () => {
-  const { language } = useRedux()
+  const selectLanguage = state => state.language;
+  const getLanguage = createSelector(
+    selectLanguage,
+    language => language
+  )
+  const language = useSelector(getLanguage);
+
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get("page") || 1;
   const [popularMovies, setPopularMovies] = useState([])
@@ -23,7 +30,6 @@ const Popular = () => {
 
   useEffect(() => {
     updateGetPopularMovies()
-    console.log("Popular rendered");
   }, [updateGetPopularMovies])
 
   return (

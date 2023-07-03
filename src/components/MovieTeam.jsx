@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import React from 'react';
-import useRedux from '../hooks/useRedux';
 import { NavLink } from 'react-router-dom';
 import { posterURL } from '../services/apiURLs';
 import { alphabetically } from './../utils/sortHelper';
@@ -13,11 +12,19 @@ import defaultImageMan from "../assets/images/defaultManImage.png"
 import defaultImageWoman from "../assets/images/defaultWomanImage.png"
 import { useTranslation } from 'react-i18next';
 import "../css/teams.css"
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 
 export default memo(function MovieTeam({ movieCredits }) {
     const { t } = useTranslation()
-    const { language } = useRedux()
+    
+    const selectLanguage = state => state.language;
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const language = useSelector(getLanguage);
 
     return (
         <div className='container'>

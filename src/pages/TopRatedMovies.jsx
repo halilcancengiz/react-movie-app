@@ -6,26 +6,31 @@ import Pagination from '../components/Pagination';
 import MovieCard from '../components/MovieCard';
 import { getTopRatedMovies } from '../services/tmdb/tmdb';
 import { useTranslation } from 'react-i18next';
-import useRedux from '../hooks/useRedux';
 import SearchBar from '../components/SearchBar';
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 
 function TopRatedMovies() {
+    const selectLanguage = state => state.language;
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const language = useSelector(getLanguage);
+
     const [topRatedMovies, setTopRatedMovies] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get("page") || 1;
-    const { language } = useRedux()
     const { t } = useTranslation()
 
     const updateGetTopRatedMovies = useCallback(async () => {
         const result = await getTopRatedMovies(page, language)
         setTopRatedMovies(result)
-        console.count("updateGetTopRatedMovies rendered")
     }, [page, language])
 
     useEffect(() => {
         updateGetTopRatedMovies()
-        console.count("TopRatedMovies rendered");
     }, [updateGetTopRatedMovies])
     return (
         <main className='container mt-5 d-flex flex-column'>

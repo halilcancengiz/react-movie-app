@@ -9,15 +9,21 @@ import { Empty, Image, Tooltip } from "antd";
 import { FaImdb } from "react-icons/fa";
 import { RiMovieFill } from "../assets/icons/icons";
 import { findPersonImdbHelper } from "./../utils/findPersonImdbHelper";
-import useRedux from "../hooks/useRedux";
 import { actorsSettings } from "../utils/sliderSettings";
 import { useTranslation } from "react-i18next";
 import "../css/actors.css";
+import { createSelector } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 
 export default memo(function Actors({ movieCredits }) {
   const { t } = useTranslation();
-  const { language } = useRedux();
+  const selectLanguage = state => state.language;
+  const getLanguage = createSelector(
+    selectLanguage,
+    language => language
+  )
+  const language = useSelector(getLanguage);
 
   return (
     <div className="container">
@@ -28,79 +34,78 @@ export default memo(function Actors({ movieCredits }) {
         <Slider {...actorsSettings}>
           {movieCredits.cast
             ? movieCredits.cast.sort(alphabetically(true)).map((actor) => (
-                <div
-                  key={actor.id}
-                  className="d-flex flex-column w-100 align-items-center justify-content-center me-5"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title={actor.name}
-                >
-                  <div className="movie-actor-image-container  position-relative">
-                    <Image
-                      preview={actor.profile_path === null ? false : true}
-                      alt={actor.name}
-                      width={150}
-                      height={225}
-                      className="overflow-hidden"
-                      src={
-                        actor.profile_path
-                          ? posterURL(actor.profile_path)
-                          : actor.profile_path === null &&
-                            (actor.gender === 1 || actor.gender === 0)
+              <div
+                key={actor.id}
+                className="d-flex flex-column w-100 align-items-center justify-content-center me-5"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title={actor.name}
+              >
+                <div className="movie-actor-image-container  position-relative">
+                  <Image
+                    preview={actor.profile_path === null ? false : true}
+                    alt={actor.name}
+                    width={150}
+                    height={225}
+                    className="overflow-hidden"
+                    src={
+                      actor.profile_path
+                        ? posterURL(actor.profile_path)
+                        : actor.profile_path === null &&
+                          (actor.gender === 1 || actor.gender === 0)
                           ? defaultImageWoman
                           : defaultImageMan
-                      }
-                    />
-                    {actor.profile_path === null ? (
-                      ""
-                    ) : (
-                      <div className="d-flex align-items-center justify-content-between person-info-container w-100 ">
-                        <div
-                          className="cursor-pointer"
-                          onClick={() =>
-                            findPersonImdbHelper(actor.id, language)
-                          }
-                        >
-                          <Tooltip title={`'${actor.name}' IMDB`}>
-                            <FaImdb
-                              size={35}
-                              color="#DFB31D"
-                              className="m-2 icon-shadow"
-                            />
-                          </Tooltip>
-                        </div>
-                        <NavLink
-                          to={`/person/${actor.name.split(" ").join("")}/${
-                            actor.id
-                          }`}
-                        >
-                          <Tooltip
-                            title={`'${actor.name}' bulunduğu diğer filmler.`}
-                          >
-                            <RiMovieFill
-                              size={35}
-                              color="dodgerblue"
-                              className="m-2 icon-shadow"
-                            />
-                          </Tooltip>
-                        </NavLink>
+                    }
+                  />
+                  {actor.profile_path === null ? (
+                    ""
+                  ) : (
+                    <div className="d-flex align-items-center justify-content-between person-info-container w-100 ">
+                      <div
+                        className="cursor-pointer"
+                        onClick={() =>
+                          findPersonImdbHelper(actor.id, language)
+                        }
+                      >
+                        <Tooltip title={`'${actor.name}' IMDB`}>
+                          <FaImdb
+                            size={35}
+                            color="#DFB31D"
+                            className="m-2 icon-shadow"
+                          />
+                        </Tooltip>
                       </div>
-                    )}
-                  </div>
-                  <span
-                    style={{ width: "150px" }}
-                    className="fw-bold mt-1 line-clamp-1 text-center"
-                  >
-                    {actor.name}
-                  </span>
-                  <span
-                    style={{ width: "150px" }}
-                    className="fst-italic line-clamp-1 text-center"
-                  >
-                    {actor.character}
-                  </span>
+                      <NavLink
+                        to={`/person/${actor.name.split(" ").join("")}/${actor.id
+                          }`}
+                      >
+                        <Tooltip
+                          title={`'${actor.name}' bulunduğu diğer filmler.`}
+                        >
+                          <RiMovieFill
+                            size={35}
+                            color="dodgerblue"
+                            className="m-2 icon-shadow"
+                          />
+                        </Tooltip>
+                      </NavLink>
+                    </div>
+                  )}
                 </div>
-              ))
+                <span
+                  style={{ width: "150px" }}
+                  className="fw-bold mt-1 line-clamp-1 text-center"
+                >
+                  {actor.name}
+                </span>
+                <span
+                  style={{ width: "150px" }}
+                  className="fst-italic line-clamp-1 text-center"
+                >
+                  {actor.character}
+                </span>
+              </div>
+            ))
             : "yok"}
         </Slider>
       ) : (

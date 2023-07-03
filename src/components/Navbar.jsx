@@ -1,31 +1,59 @@
 import { useEffect, useCallback } from 'react';
 import React from 'react';
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { changeTrLanguage, changeEnLanguage } from "../features/lang"
 import { NavLink } from "react-router-dom"
 import defaultUserImage from "../assets/images/defaultManImage.png"
 import logo from "../assets/images/logo.png"
-import UseRedux from "../hooks/useRedux"
 import { useTranslation } from 'react-i18next';
 import i18n from "../i18n";
+import { createSelector } from '@reduxjs/toolkit';
 import "../css/navbar.css"
+import { memo } from 'react';
 
 function Navbar() {
-    const { user, language, userPhotoURL, userDisplayName } = UseRedux()
+    const selectUserPhotoURL = state => state.profile.value.photoURL;
+    const selectUser = state => state.auth.user;
+    const selectLanguage = state => state.language;
+    const selectUserDisplayName = state => state.profile.value.displayName;
+
+    const getUserPhotoURL = createSelector(
+        selectUserPhotoURL,
+        userPhotoURL => userPhotoURL
+    )
+    const getUserDisplayName = createSelector(
+        selectUserDisplayName,
+        userDisplayName => userDisplayName
+    )
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const getUser = createSelector(
+        selectUser,
+        user => user
+    )
+    const language = useSelector(getLanguage);
+    const user = useSelector(getUser);
+    const userPhotoURL = useSelector(getUserPhotoURL);
+    const userDisplayName = useSelector(getUserDisplayName);
+
     const dispatch = useDispatch()
     const { t } = useTranslation();
 
     const toggleLanguage = useCallback(() => {
-        if (language === "en-EN") {
+
+        if (language.language === "en-EN") {
             dispatch(changeTrLanguage())
         } else {
             dispatch(changeEnLanguage())
         }
+
+
     }, [language, dispatch]);
 
-
     useEffect(() => {
-        i18n.changeLanguage(language);
+        i18n.changeLanguage(language.language);
     }, [language])
 
     return (
@@ -40,8 +68,8 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav text-center">
                         <li className="nav-item my-auto d-flex align-items-center justify-content-center">
-                            <button onClick={toggleLanguage} className={language === "tr-TR" ? "activeLang" : "deActiveLang"}>TR</button>
-                            <button onClick={toggleLanguage} className={language === "en-EN" ? "activeLang" : "deActiveLang"}>EN</button>
+                            <button onClick={toggleLanguage} className={language.language === "tr-TR" ? "activeLang" : "deActiveLang"}>TR</button>
+                            <button onClick={toggleLanguage} className={language.language === "en-EN" ? "activeLang" : "deActiveLang"}>EN</button>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/popular-movies/?page=1" aria-current="page">{t("popularMovies")}</NavLink>
@@ -73,4 +101,10 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default memo(Navbar)
+
+
+
+
+
+

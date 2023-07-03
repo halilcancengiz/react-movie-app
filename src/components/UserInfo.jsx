@@ -1,18 +1,53 @@
 import { useEffect, memo } from 'react';
-import React from 'react';
 import { userProfileListener, userCommentListener, getUserImageFromFirebase } from "../services/firebase/firebase";
 import { RiMovieFill, MdOutlineFeaturedPlayList, FaRegComment } from "../assets/icons/icons"
 import defaultUserImage from "../assets/images/defaultManImage.png"
 import { Tooltip } from 'antd';
 import { useCallback } from 'react';
-import useRedux from './../hooks/useRedux';
 import { useTranslation } from 'react-i18next';
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import "../css/userinfo.css"
 
 
 function UserInfo({ user }) {
+
+    const selectLanguage = state => state.language;
+    const selectUserLists = state => state.uLists.value
+    const selectUserDisplayName = state => state.profile.value.displayName
+    const selectUserComments = state => state.comments.value.userComments
+    const selectUserPhotoURL = state => state.profile.value.photoURL
+
+    const getUserComments = createSelector(
+        selectUserComments,
+        userComments => userComments
+    )
+    const getUserPhotoURL = createSelector(
+        selectUserPhotoURL,
+        userPhotoURL => userPhotoURL
+    )
+    const getUserDisplayName = createSelector(
+        selectUserDisplayName,
+        userDisplayName => userDisplayName
+    )
+    const getUserLists = createSelector(
+        selectUserLists,
+        userLists => userLists
+    )
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const userDisplayName = useSelector(getUserDisplayName);
+    const language = useSelector(getLanguage);
+    const userLists = useSelector(getUserLists);
+    const userComments = useSelector(getUserComments);
+    const userPhotoURL = useSelector(getUserPhotoURL);
+
+
+
+
     const { t } = useTranslation()
-    const { userDisplayName, userComments, userLists, userPhotoURL, language } = useRedux()
     const totalMovie = useCallback(() => {
         let count = 0;
         for (let i = 0; i < userLists.length; i++) {

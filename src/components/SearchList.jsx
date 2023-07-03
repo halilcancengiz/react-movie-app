@@ -1,17 +1,22 @@
 import { useEffect, useState, useCallback } from 'react';
-import React from 'react';
 import { searchMovie } from '../services/tmdb/tmdb';
 import { useParams } from 'react-router-dom';
 import MovieCard from './MovieCard';
-import useRedux from "../hooks/useRedux"
 import SearchBar from './SearchBar';
 import { useTranslation } from 'react-i18next';
 
 function SearchList() {
+    const selectLanguage = state => state.language;
+    const getLanguage = createSelector(
+        selectLanguage,
+        language => language
+    )
+    const language = useSelector(getLanguage);
+
     const { t } = useTranslation()
     const [searchMovieList, setSearchMovieList] = useState([])
     const { query } = useParams()
-    const { language } = useRedux()
+
 
 
     const updateSearchMovie = useCallback(() => {
