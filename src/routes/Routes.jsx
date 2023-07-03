@@ -9,12 +9,14 @@ import SearchList from '../components/SearchList';
 import Login from '../pages/membership/Login';
 import Register from '../pages/membership/Register';
 import Profile from '../pages/Profile';
-import PopularMoviesLayout from '../components/Layouts/PopularMoviesLayout';
+// import PopularMoviesLayout from '../components/Layouts/PopularMoviesLayout';
 import Popular from '../pages/Popular';
-import TopRatedMoviesLayout from '../components/Layouts/TopRatedMoviesLayout';
 import TopRatedMovies from '../pages/TopRatedMovies';
 import PersonDetails from '../pages/PersonDetails';
-import MovieDetails from '../pages/MovieDetails';
+
+const LazyPopularMoviesLayout = React.lazy(() => import("../components/Layouts/PopularMoviesLayout"))
+const LazyTopRatedMoviesLayout = React.lazy(() => import("../components/Layouts/TopRatedMoviesLayout"))
+const LazyMovieDetails = React.lazy(() => import("../pages/MovieDetails"))
 import NotFound from '../pages/NotFound';
 
 const Routes = () => {
@@ -37,19 +39,31 @@ const Routes = () => {
 
       {user && <Route path="/profile/:userName" element={<Profile />} />}
 
-      <Route path="/popular-movies" element={<PopularMoviesLayout />}>
+      <Route path="/popular-movies" element={
+        <React.Suspense>
+          <LazyPopularMoviesLayout />
+        </React.Suspense>
+      }>
         <Route index element={<Popular />} />
         <Route path="/popular-movies/page=:currentpage" element={<Popular />} />
       </Route>
 
-      <Route path="/top-rated-movies" element={<TopRatedMoviesLayout />}>
+      <Route path="/top-rated-movies" element={
+        <React.Suspense>
+          <LazyTopRatedMoviesLayout />
+        </React.Suspense>
+      }>
         <Route index element={<TopRatedMovies />} />
         <Route path="/top-rated-movies/page=:currentpage" element={<TopRatedMovies />} />
       </Route>
 
       <Route path="/person/:personName/:personId" element={<PersonDetails />} />
 
-      <Route path="/movie/:id/:title" element={<MovieDetails />} />
+      <Route path="/movie/:id/:title" element={
+        <React.Suspense>
+          <LazyMovieDetails />
+        </React.Suspense>} />
+
       <Route path="*" element={<NotFound />} />
     </RouteContainer>
   );

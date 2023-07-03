@@ -1,5 +1,5 @@
 export const posterURL = (posterPath) => {
-    return `https://www.themoviedb.org/t/p/original/${posterPath}`
+    return `https://www.themoviedb.org/t/p/w300/${posterPath}`;
 }
 export const imdbURL = (imdbId) => {
     return `https://www.imdb.com/title/${imdbId}/?ref_=fn_al_tt_1`

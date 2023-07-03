@@ -37,7 +37,6 @@ export default memo(function MovieInfo({ movieId, movieCredits, language }) {
                     movieDetails.poster_path ? (
                         <div className="position-relative info-image">
                             <img
-                                className='w-100 h-100'
                                 src={posterURL(movieDetails.poster_path)} alt={movieDetails.original_title}
                             />
                             <a href={`${imdbURL(movieDetails.imdb_id)}`} target="_blank" rel="noreferrer"><FaImdb size={45} color="#DFB31D" className="imdb-button position-absolute m-2" /></a>

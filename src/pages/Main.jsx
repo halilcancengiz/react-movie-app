@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
@@ -17,10 +17,10 @@ import "../css/main.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Main = () => {
-  const selectLanguage = state => state.language;
+  const selectLanguage = (state) => state.language;
   const getLanguage = createSelector(
     selectLanguage,
-    language => language.language
+    (language) => language.language
   );
   const language = useSelector(getLanguage);
 
@@ -30,14 +30,12 @@ const Main = () => {
   const [searchList, setSearchList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
-  const genresName = genres.map(name =>
-    language === "en-EN" ? name.en : name.tr
-  );
+  const genresName = useMemo(() => genres.map((name) => language === "en-EN" ? name.en : name.tr), [language]);
   const { t } = useTranslation();
 
   const checkGenresValue = useCallback(
-    e => {
-      const findGenre = genres.find(x =>
+    (e) => {
+      const findGenre = genres.find((x) =>
         language === "tr-TR" ? x.tr === e : x.en === e
       );
       if (findGenre && findGenre.id) {
@@ -48,23 +46,19 @@ const Main = () => {
     [language, setSearchParams]
   );
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const upcomingMovies = await getUpcomingMovies(language);
-      setMovies(upcomingMovies);
+  const fetchMovies = useCallback(async () => {
+    const upcomingMovies = await getUpcomingMovies(language);
+    setMovies(upcomingMovies);
 
-      checkGenresValue();
+    checkGenresValue();
 
-      const searchResult = await searchByGenreId(
-        genreId,
-        page,
-        language
-      );
-      setSearchList(searchResult);
-    };
-
-    fetchMovies();
+    const searchResult = await searchByGenreId(genreId, page, language);
+    setSearchList(searchResult);
   }, [language, genreId, page, checkGenresValue]);
+
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
 
   return (
     <div className="d-flex flex-column">
@@ -88,11 +82,11 @@ const Main = () => {
 
       <div className="container">
         <Slider {...mainSettings}>
-          {movies.map(item => (
+          {movies.map((item) => (
             <div key={item.id}>
               <NavLink
                 to={`/movie/${item.id}/${item.title.replace(/\s/g, "")}`}
-                className="h-100 d-flex align-items-center justify-content-center p-0 m-0"
+                className="h-100 d-flex align-items-center justify-content-center p-0 m-0 "
               >
                 <Tooltip title={item.original_title}>
                   <LazyLoadImage
@@ -100,13 +94,13 @@ const Main = () => {
                       boxShadow: "0 0 10px black",
                       borderRadius: "20px",
                       margin: "10px",
+                      background: "#0A253E",
                     }}
                     effect="blur"
                     width="150px"
                     height="100%"
                     alt={item.original_title}
                     src={posterURL(item.poster_path)}
-                    placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
                   />
                 </Tooltip>
               </NavLink>
@@ -123,7 +117,7 @@ const Main = () => {
         <Segmented
           style={{ boxShadow: "0 0 10px gray", background: "#0a253e" }}
           className="py-1 w-100 text-center text-white"
-          onChange={e => {
+          onChange={(e) => {
             checkGenresValue(e);
             setGenreName(e);
           }}

@@ -61,7 +61,6 @@ const MovieCard = memo(({ movieList, size, listId }) => {
                     height="100%"
                     alt={movie.original_title}
                     src={posterURL(movie.poster_path)}
-                    placeholderSrc="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
                   />
                 </Tooltip>
               )}
