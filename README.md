@@ -1,5 +1,5 @@
 <h1 style="text-align:center;" id="mainHeader">React Movie App</h1>
-<p style="text-align:center;">Uygulamaya gitmek için <span><a href="https://halilcancengiz.github.io/react-movie-app/" target="blank">tıklayın.</a></span></p>
+<p style="text-align:center;">Uygulamaya gitmek için <span><a href="[https://halilcancengiz.github.io/react-movie-app/](https://react-movie-app-murex.vercel.app/)" target="blank">tıklayın.</a></span></p>
 <h3 style="text-align:center;text-transform:capitalize">--Kullanılan Teknolojiler ve Kütüphaneler--</h3>
 <ul style="display:flex;flex-wrap:wrap;justify-content:center">
 <li style="list-style-type:none;display:flex;align-items:center;margin-top:10px;">
